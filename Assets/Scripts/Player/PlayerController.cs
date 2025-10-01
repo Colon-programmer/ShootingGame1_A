@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     private InputAction moveingAction; // 移動の入力判定
     private InputAction slowAction; // 低速移動切り替えボタン
 
-    [SerializeField] private GameObject meinshottingPrefab; // メインショットの画像
+    [SerializeField] private GameObject meinshottingPrefab_1; // メインショットの画像(1人目のキャラの)
+    [SerializeField] private GameObject meinshottingPrefab_2; // メインショットの画像(2人目のキャラの)
     private float meinshotinterval = 0.1f; // メインショットのインターバル
     private float meinshottime = 0.0f; // メインショットを撃つタイミングを測る
 
@@ -52,9 +53,9 @@ public class PlayerController : MonoBehaviour
             if (meinshottime >= meinshotinterval)
             {
                 // メインショットを撃つ
-                Instantiate(meinshottingPrefab,
+                Instantiate(meinshottingPrefab_1,
                     new Vector2(playerposition.x - 0.25f, playerposition.y), Quaternion.identity);
-                Instantiate(meinshottingPrefab,
+                Instantiate(meinshottingPrefab_1,
                     new Vector2(playerposition.x + 0.25f, playerposition.y), Quaternion.identity);
                 meinshottime = 0.0f;
             }
