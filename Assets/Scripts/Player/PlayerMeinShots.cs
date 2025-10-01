@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerMeinShots : MonoBehaviour
 {
-    Rigidbody2D meinshotRb; // ƒƒCƒ“ƒVƒ‡ƒbƒg‚ÌRigidbody
-    float meinshotspeed = 30.0f; // ƒƒCƒ“ƒVƒ‡ƒbƒg‚Ì’e‘¬
+    Rigidbody2D meinshotRb; // ãƒ¡ã‚¤ãƒ³ã‚·ãƒ§ãƒƒãƒˆã®Rigidbody
+    float meinshotspeed = 30.0f; // ãƒ¡ã‚¤ãƒ³ã‚·ãƒ§ãƒƒãƒˆã®å¼¾é€Ÿ
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

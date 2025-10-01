@@ -1,14 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+// è‡ªæ©Ÿã®æ“ä½œã‚’ç®¡ç†ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 
 public class PlayerController : MonoBehaviour
 {
-    private InputAction shottingAction; // ƒVƒ‡ƒbƒgƒ{ƒ^ƒ“‚Ì“ü—Í”»’è
-    private InputAction moveingAction; // ˆÚ“®‚Ì“ü—Í”»’è
-    [SerializeField] private GameObject meinshottingPrefab; // ƒƒCƒ“ƒVƒ‡ƒbƒg‚Ì‰æ‘œ
-    private float meinshotinterval = 0.1f; // ƒƒCƒ“ƒVƒ‡ƒbƒg‚ÌƒCƒ“ƒ^[ƒoƒ‹
-    private float meinshottime = 0.0f; // ƒƒCƒ“ƒVƒ‡ƒbƒg‚ğŒ‚‚Âƒ^ƒCƒ~ƒ“ƒO‚ğ‘ª‚é
+    private InputAction shottingAction; // ã‚·ãƒ§ãƒƒãƒˆãƒœã‚¿ãƒ³ã®å…¥åŠ›åˆ¤å®š
+    private InputAction moveingAction; // ç§»å‹•ã®å…¥åŠ›åˆ¤å®š
+    private InputAction slowAction; // ä½é€Ÿç§»å‹•åˆ‡ã‚Šæ›¿ãˆãƒœã‚¿ãƒ³
+
+    [SerializeField] private GameObject meinshottingPrefab; // ãƒ¡ã‚¤ãƒ³ã‚·ãƒ§ãƒƒãƒˆã®ç”»åƒ
+    private float meinshotinterval = 0.1f; // ãƒ¡ã‚¤ãƒ³ã‚·ãƒ§ãƒƒãƒˆã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«
+    private float meinshottime = 0.0f; // ãƒ¡ã‚¤ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’ƒã¤ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã‚’æ¸¬ã‚‹
+
+    private float playerHighSpeed = 5.0f; // è‡ªæ©Ÿã®é«˜é€Ÿæ™‚ç§»å‹•é€Ÿåº¦
+    private float playerSlowSpeed = 2.0f; // è‡ªæ©Ÿã®ä½é€Ÿæ™‚ç§»å‹•é€Ÿåº¦
+
     private Vector2 playerposition;
     private Rigidbody2D playerRb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,22 +23,35 @@ public class PlayerController : MonoBehaviour
     {
         shottingAction = InputSystem.actions.FindAction("Attack");
         moveingAction = InputSystem.actions.FindAction("Move");
+        slowAction = InputSystem.actions.FindAction("Slow");
         playerRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // ˆÚ“®
         var playermoveValue = moveingAction.ReadValue<Vector2>();
-        playerRb.linearVelocity = new Vector2(playermoveValue.x, playermoveValue.y);
-        // ƒVƒ‡ƒbƒg
+        // ç§»å‹•
+        if (slowAction.IsPressed())
+        {
+            // ä½é€Ÿç§»å‹•
+            playerRb.linearVelocity =
+            new Vector2(playermoveValue.x * playerSlowSpeed, playermoveValue.y * playerSlowSpeed);
+        }
+        else
+        {
+            // é«˜é€Ÿç§»å‹•
+            playerRb.linearVelocity =
+            new Vector2(playermoveValue.x * playerHighSpeed, playermoveValue.y * playerHighSpeed);
+        }
+        // ã‚·ãƒ§ãƒƒãƒˆ
         playerposition = this.transform.position;
         if (shottingAction.IsPressed())
         {
             meinshottime += Time.deltaTime;
             if (meinshottime >= meinshotinterval)
             {
+                // ãƒ¡ã‚¤ãƒ³ã‚·ãƒ§ãƒƒãƒˆã‚’æ’ƒã¤
                 Instantiate(meinshottingPrefab,
                     new Vector2(playerposition.x - 0.25f, playerposition.y), Quaternion.identity);
                 Instantiate(meinshottingPrefab,
