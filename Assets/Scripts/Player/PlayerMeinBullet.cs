@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
-public class PlayerMeinShots : MonoBehaviour
+public class PlayerMeinBullet : MonoBehaviour
 {
     Rigidbody2D meinshotRb; // メインショットのRigidbody
     float meinshotspeed = 30.0f; // メインショットの弾速
