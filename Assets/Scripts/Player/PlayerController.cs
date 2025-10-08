@@ -3,7 +3,7 @@
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private ControllerManager controllerManager;
+    [SerializeField] protected ControllerManager controllerManager;
 
     [SerializeField] protected GameObject meinshottingPrefab;
     protected float meinshotinterval = 0.1f; // メインショットのインターバル
@@ -19,7 +19,8 @@ public class PlayerController : MonoBehaviour
     protected Vector2 playerposition;
     protected Rigidbody2D playerRb;
 
-    protected Vector2[,] subshooterLayout = new Vector2[4, 2]; // サブショットの発射口の配置を格納する変数
+    protected Vector2[,] fastsubshooterLayout = new Vector2[4, 2]; // 高速時サブショットの発射口の配置を格納する変数
+    protected Vector2[,] slowsubshooterLayout = new Vector2[4, 2]; // 低速時サブショットの発射口の配置を格納する変数
     [SerializeField] protected GameObject subshooter; // サブショットの発射口の画像
 
     protected GameObject[] subshooterObj = new GameObject[4]; // 生成したサブショットの発射口を変数として持たせる
@@ -127,6 +128,7 @@ public class PlayerController : MonoBehaviour
         }
         subShooterCenter.transform.position = new Vector2(playerRb.position.x,
                                                             playerRb.position.y);
+        SubShooterPositionning();
     }
     /// <summary>
     /// ゲームスタート時の自機の初期設定をする関数
@@ -143,5 +145,12 @@ public class PlayerController : MonoBehaviour
     public virtual void SubShooterSetting()
     {
         
+    }
+    /// <summary>
+    /// サブショットの発射口の配置を変更する関数
+    /// </summary>
+    public virtual void SubShooterPositionning()
+    {
+
     }
 }

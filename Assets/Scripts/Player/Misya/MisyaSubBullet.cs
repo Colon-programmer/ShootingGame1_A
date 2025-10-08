@@ -2,8 +2,16 @@
 
 public class MisyaSubBullet : MonoBehaviour
 {
+    public enum SubBullets
+    {
+        Fast = 0,
+        Slow = 1
+    }
+
     Rigidbody2D subshotRb; // サブショットのRigidbody
-    float subshotspeed = 15.0f; // サブショットの弾速
+    [SerializeField] private SubBullets subbullets;
+    float fastsubshotspeed = 15.0f; // 高速時サブショットの弾速
+    float slowsubshotspeed = 30.0f; // 低速時サブショットの弾速
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,10 +21,31 @@ public class MisyaSubBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        subshotRb.linearVelocity = new Vector2(0, subshotspeed);
-        if (subshotRb.transform.position.y >= 6.0f)
+        // 高速時
+        if (subbullets == SubBullets.Fast)
         {
-            Destroy(this.gameObject);
+            subshotRb.AddForce(transform.up * fastsubshotspeed, ForceMode2D.Impulse);
+            if (subshotRb.linearVelocity.magnitude > fastsubshotspeed)
+            {
+                subshotRb.linearVelocity = subshotRb.linearVelocity.normalized * fastsubshotspeed;
+            }
+            if (subshotRb.transform.position.y >= 6.0f)
+            {
+                Destroy(this.gameObject);
+            }
+        }
+        // 低速時
+        if (subbullets == SubBullets.Slow)
+        {
+            subshotRb.AddForce(transform.up * slowsubshotspeed, ForceMode2D.Impulse);
+            if (subshotRb.linearVelocity.magnitude > slowsubshotspeed)
+            {
+                subshotRb.linearVelocity = subshotRb.linearVelocity.normalized * slowsubshotspeed;
+            }
+            if (subshotRb.transform.position.y >= 6.0f)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ public class SubShooters : MonoBehaviour
 
     protected GameObject ShotsField;
 
-    private GameObject controllerManager;
+    protected GameObject controllerManager;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
