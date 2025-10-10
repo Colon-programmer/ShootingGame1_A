@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -5022964425457909736}
   - component: {fileID: 442586671290029050}
   - component: {fileID: 3891873974083050441}
+  - component: {fileID: -592219710225690916}
   m_Layer: 0
   m_Name: MeinBullet_01
   m_TagString: PlayerShots
@@ -175,3 +176,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.11, y: 3.8}
   m_EdgeRadius: 0
+--- !u!114 &-592219710225690916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5428428879694104023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a6bc86c7407794b9c67228d7a4970d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 50
