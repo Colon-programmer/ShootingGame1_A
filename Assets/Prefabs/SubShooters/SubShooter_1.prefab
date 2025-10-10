@@ -104,6 +104,7 @@ MonoBehaviour:
   subBullet: {fileID: 4746291503981851601, guid: 09ae9b01429d82a4b851651855dae0ed, type: 3}
   subPosition: 0
   slowsubBullet: {fileID: 3810133023228399954, guid: 351bcaa9453df6343a080cc5b6645588, type: 3}
+  changeshotangle: 0
 --- !u!50 &1075707514061658285
 Rigidbody2D:
   serializedVersion: 5

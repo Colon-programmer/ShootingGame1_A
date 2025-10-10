@@ -11,27 +11,29 @@ public class MisyaPerformance : PlayerController
     {
         // サブショットの位置を設定
         // 高速時
+        // パワーが1以上で使えるサブショット
         fastsubshooterLayout[0, 0] = new Vector2(-1.1f, 0.0f);
         fastsubshooterLayout[0, 1] = new Vector2(0.0f, 1.0f);
-
+        // パワーが2以上で使えるサブショット
         fastsubshooterLayout[1, 0] = new Vector2(1.1f, 0.0f);
         fastsubshooterLayout[1, 1] = new Vector2(1.1f, 0.0f);
-
+        // パワーが3以上で使えるサブショット
         fastsubshooterLayout[2, 0] = new Vector2(-2.2f, 0.0f);
         fastsubshooterLayout[2, 1] = new Vector2(-1.1f, 0.0f);
-
+        // パワーが4以上で使えるサブショット
         fastsubshooterLayout[3, 0] = new Vector2(2.2f, 0.0f);
         fastsubshooterLayout[3, 1] = new Vector2(0.0f, -1.0f);
         // 低速時
+        // パワーが1以上で使えるサブショット
         slowsubshooterLayout[0, 0] = new Vector2(-0.25f, 0.0f);
         slowsubshooterLayout[0, 1] = new Vector2(0.0f, 0.0f);
-
+        // パワーが2以上で使えるサブショット
         slowsubshooterLayout[1, 0] = new Vector2(0.25f, 0.0f);
         slowsubshooterLayout[1, 1] = new Vector2(0.5f, 0.0f);
-
+        // パワーが3以上で使えるサブショット
         slowsubshooterLayout[2, 0] = new Vector2(-0.75f, 0.0f);
         slowsubshooterLayout[2, 1] = new Vector2(-0.5f, 0.0f);
-
+        // パワーが4以上で使えるサブショット
         slowsubshooterLayout[3, 0] = new Vector2(0.75f, 0.0f);
         slowsubshooterLayout[3, 1] = new Vector2(0.0f,-1.0f);
         // サブショットの発射口を生成
@@ -59,19 +61,21 @@ public class MisyaPerformance : PlayerController
 
     public override void SubShooterPositionning()
     {
-        sbyte power;
-        sbyte movetype;
+        sbyte power; // パワーの数値の偶奇を受け渡す変数
+        sbyte movetype; // 自機の今の移動が高速か低速かを受け渡す変数
         // 低速時
         if (controllerManager.slowAction.IsPressed())
         {
             movetype = 1;
             if (Mathf.Floor(shotPower) == 0 || Mathf.Floor(shotPower) % 2 == 0)
             {
+                subshooterObj[0].GetComponent<MisyaSubShots>().changeshotangle = false;
                 power = 0;
                 PositionningForLoop(power, movetype);
             }
             else if (Mathf.Floor(shotPower) % 2 == 1)
             {
+                subshooterObj[0].GetComponent<MisyaSubShots>().changeshotangle = true;
                 power = 1;
                 PositionningForLoop(power, movetype);
             }
@@ -82,11 +86,15 @@ public class MisyaPerformance : PlayerController
             movetype = 0;
             if (Mathf.Floor(shotPower) == 0 || Mathf.Floor(shotPower) % 2 == 0)
             {
+                // 真ん中に配置される事が有るサブショットはパワーが偶数の時は斜めにも弾を飛ばすようにする
+                subshooterObj[0].GetComponent<MisyaSubShots>().changeshotangle = false;
                 power = 0;
                 PositionningForLoop(power, movetype);
             }
             else if (Mathf.Floor(shotPower) % 2 == 1)
             {
+                // 真ん中に配置される事が有るサブショットはパワーが奇数の時は全て真っ直ぐに弾を飛ばすようにする
+                subshooterObj[0].GetComponent<MisyaSubShots>().changeshotangle = true;
                 power = 1;
                 PositionningForLoop(power, movetype);
             }

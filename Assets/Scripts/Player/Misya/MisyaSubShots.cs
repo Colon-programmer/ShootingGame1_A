@@ -12,6 +12,8 @@ public class MisyaSubShots : SubShooters
 
     [SerializeField] private GameObject slowsubBullet; // 低速時ショットの弾
 
+    public bool changeshotangle = false;
+
     public override void Start()
     {
         base.Start();
@@ -23,24 +25,40 @@ public class MisyaSubShots : SubShooters
         if (controllerManager.GetComponent<ControllerManager>().slowAction.IsPressed())
         {
             subshotinterval = 0.1f;
-            // まっすぐ飛ばす弾
-            Instantiate(slowsubBullet,
-                    this.transform.position, Quaternion.identity, ShotsField.transform);
-            // 斜め飛ばす弾
-            if (subPosition == LeftAndRight.Left) // 自機より左のサブショット
+            
+            // 2発共にまっすぐ飛ばすフラグが立っていた時
+            if (changeshotangle)
             {
-                GameObject slowBullets;
-                slowBullets = Instantiate(slowsubBullet,
-                    this.transform.position, Quaternion.identity, ShotsField.transform);
-                slowBullets.transform.eulerAngles = new Vector3(0, 0, 30);
+                Instantiate(slowsubBullet,
+                    new Vector2(this.transform.position.x - 0.25f, this.transform.position.y),
+                    Quaternion.identity, ShotsField.transform);
+                Instantiate(slowsubBullet,
+                    new Vector2(this.transform.position.x + 0.25f, this.transform.position.y),
+                    Quaternion.identity, ShotsField.transform);
             }
-            if (subPosition == LeftAndRight.Right) // 自機より右のサブショット
+            // そうでない時
+            else
             {
-                GameObject slowBullets;
-                slowBullets = Instantiate(slowsubBullet,
-                    this.transform.position, Quaternion.identity, ShotsField.transform);
-                slowBullets.transform.eulerAngles = new Vector3(0, 0, -30);
+                // まっすぐ飛ばす弾
+                Instantiate(slowsubBullet,
+                        this.transform.position, Quaternion.identity, ShotsField.transform);
+                // 斜め飛ばす弾
+                if (subPosition == LeftAndRight.Left) // 自機より左のサブショット
+                {
+                    GameObject slowBullets;
+                    slowBullets = Instantiate(slowsubBullet,
+                        this.transform.position, Quaternion.identity, ShotsField.transform);
+                    slowBullets.transform.eulerAngles = new Vector3(0, 0, 15);
+                }
+                if (subPosition == LeftAndRight.Right) // 自機より右のサブショット
+                {
+                    GameObject slowBullets;
+                    slowBullets = Instantiate(slowsubBullet,
+                        this.transform.position, Quaternion.identity, ShotsField.transform);
+                    slowBullets.transform.eulerAngles = new Vector3(0, 0, -15);
+                }
             }
+            
             subshottime = 0.0f;
         }
         // 高速時

@@ -12,6 +12,8 @@ public class MisyaSubBullet : MonoBehaviour
     [SerializeField] private SubBullets subbullets;
     float fastsubshotspeed = 15.0f; // 高速時サブショットの弾速
     float slowsubshotspeed = 30.0f; // 低速時サブショットの弾速
+    int fastsubshotdamage = 25; // 高速時サブショットが与えられるダメージ量
+    int slowsubshotdamage = 50; // 低速時サブショットが与えられるダメージ量
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,7 +21,7 @@ public class MisyaSubBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // 高速時
         if (subbullets == SubBullets.Fast)
