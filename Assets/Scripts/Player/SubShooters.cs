@@ -30,7 +30,11 @@ public class SubShooters : MonoBehaviour
         }
         else
         {
-            subshottime = subshotinterval; // 次に押した時すぐに発射されるようにする
+            // 連打でインターバル以上に弾を出さないようにしつつ、押しなおしたらすぐに弾が出るようにする
+            if (subshottime < subshotinterval)
+            {
+                subshottime += Time.deltaTime;
+            }
         }
         
     }

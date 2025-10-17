@@ -12,12 +12,7 @@ public class MisyaSubShots : SubShooters
 
     [SerializeField] private GameObject slowsubBullet; // 低速時ショットの弾
 
-    public bool changeshotangle = false;
-
-    public override void Start()
-    {
-        base.Start();
-    }
+    public bool changeshotangle = false; // 弾の飛ばし方を変えるフラグ
 
     public override void SubShotting()
     {

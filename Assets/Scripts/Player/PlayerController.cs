@@ -3,7 +3,8 @@
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] protected ControllerManager controllerManager;
+    private GameObject controllerObj; // ヒエラルキー内のControllerオブジェクト
+    protected ControllerManager controllerManager;
 
     [SerializeField] protected GameObject meinshottingPrefab;
     protected float meinshotinterval = 0.1f; // メインショットのインターバル
@@ -14,8 +15,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] protected float shotPower; // 1.0につき1つサブショットを開放することができるショットパワーの変数
 
-    [SerializeField] protected GameObject shotsField; // キャラクターと弾の動きを連動させない
-                                                      // ようにするため弾専用の座標を用意する
+    protected GameObject shotsField; // 弾専用の親オブジェクト
+
     protected Vector2 playerposition;
     protected Rigidbody2D playerRb;
 
@@ -25,13 +26,20 @@ public class PlayerController : MonoBehaviour
 
     protected GameObject[] subshooterObj = new GameObject[4]; // 生成したサブショットの発射口を変数として持たせる
     protected Rigidbody2D[] subshooterRigidbody = new Rigidbody2D[4]; // サブショットの発射口のRigidbody
-    [SerializeField] protected GameObject subShooterCenter; // サブショットの発射口の移動を自機と別にするためのオブジェクト
+    protected GameObject subShooterCenter; // サブショットの発射口の移動を自機と別にするためのオブジェクト
 
     public void Start()
     {
         // プレイヤーのRigidbodyを取得する
         playerRb = GetComponent<Rigidbody2D>();
         shotPower = 0.0f;
+        // ControllerManagerを取得する
+        controllerObj = GameObject.Find("Controller");
+        controllerManager = controllerObj.GetComponent<ControllerManager>();
+        //弾専用の親オブジェクトを取得する
+        shotsField = GameObject.Find("ShotsField");
+        // サブショットの発射口の座標用オブジェクトを取得する
+        subShooterCenter = GameObject.Find("subWeapon");
         // 自機の移動速度を設定する
         CharacterDefaultSetting();
         // サブショットの発射口を配置する
@@ -60,13 +68,17 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            meinshottime = meinshotinterval; // 次に押した時すぐに発射されるようにする
+            // 連打でインターバル以上に弾を出さないようにしつつ、押しなおしたらすぐに弾が出るようにする
+            if (meinshottime < meinshotinterval)
+            {
+                meinshottime += Time.deltaTime;
+            }
         }
     }
     /// <summary>
     /// 溜まったパワーの量に応じてサブショットを開放したり閉鎖したりする関数
     /// </summary>
-    public void ShotPowerCheck()
+    public virtual void ShotPowerCheck()
     {
         // パワーが4.0以上の時
         if (shotPower >= 4.0f)
