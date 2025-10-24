@@ -11,14 +11,14 @@ public class TestStageSpawn : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        stageTimer = 1.0f;
+        stageTimer = 20.0f;
     }
 
     void FixedUpdate()
     {
         stageTimer -= Time.deltaTime;
-        // タイマーが0になったら敵が出るようにする
-        if (stageTimer <= 0.0f && spawnflag)
+        // タイマーが〇になったら敵が出るようにする
+        if (stageTimer <= 19.0f && spawnflag)
         {
             GameObject testbat;
             spawnflag = false;

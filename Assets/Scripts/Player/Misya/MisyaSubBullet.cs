@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+// ミーシャを選択した時の自機のサブショットの性能を管理をするスクリプト
 public class MisyaSubBullet : MonoBehaviour
 {
     public enum SubBullets

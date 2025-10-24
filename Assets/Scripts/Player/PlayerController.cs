@@ -28,6 +28,12 @@ public class PlayerController : MonoBehaviour
     protected Rigidbody2D[] subshooterRigidbody = new Rigidbody2D[4]; // サブショットの発射口のRigidbody
     protected GameObject subShooterCenter; // サブショットの発射口の移動を自機と別にするためのオブジェクト
 
+    // それぞれの方向の移動制限
+    protected float maxMoveX = 4.5f;
+    protected float minMoveX = -4.5f;
+    protected float maxMoveY = 4.5f;
+    protected float minMoveY = -4.5f;
+
     public void Start()
     {
         // プレイヤーのRigidbodyを取得する
@@ -123,24 +129,77 @@ public class PlayerController : MonoBehaviour
     {
 
         var playermoveValue = controllerManager.moveingAction.ReadValue<Vector2>();
-        
+
+        // 移動範囲の制限を超えていない時のみ移動する
+        // 左の移動制限
+        if (playermoveValue.x <= -0.1f && playerposition.x <= minMoveX)
+        {
+            playermoveValue.x = 0.0f;
+        }
+        // 右の移動制限
+        if (playermoveValue.x >= 0.1f && playerposition.x >= maxMoveX)
+        {
+            playermoveValue.x = 0.0f;
+        }
+        // 下の移動制限
+        if (playermoveValue.y <= -0.1f && playerposition.y <= minMoveY)
+        {
+            playermoveValue.y = 0.0f;
+        }
+        // 上の移動制限
+        if (playermoveValue.y >= 0.1f && playerposition.y >= maxMoveY)
+        {
+            playermoveValue.y = 0.0f;
+        }
+
+        // 低速移動
         if (controllerManager.slowAction.IsPressed())
         {
-            // 低速移動
-            // 本体
-            playerRb.linearVelocity =
-            new Vector2(playermoveValue.x * playerSlowSpeed, playermoveValue.y * playerSlowSpeed);
+            playerRb.linearVelocity = new Vector2(playermoveValue.x * playerSlowSpeed, playermoveValue.y * playerSlowSpeed);
         }
+        // 高速移動
         else
         {
-            // 高速移動
-            // 本体
-            playerRb.linearVelocity =
-            new Vector2(playermoveValue.x * playerHighSpeed, playermoveValue.y * playerHighSpeed);
+            playerRb.linearVelocity = new Vector2(playermoveValue.x * playerHighSpeed, playermoveValue.y * playerHighSpeed);
         }
+
         subShooterCenter.transform.position = new Vector2(playerRb.position.x,
                                                             playerRb.position.y);
         SubShooterPositionning();
+    }
+    /// <summary>
+    /// X方向への移動を行う関数
+    /// </summary>
+    /// <param name="moveX"></param>
+    public void PlayerMovementX(Vector2 moveX)
+    {
+        // 低速移動
+        if (controllerManager.slowAction.IsPressed())
+        {
+            playerRb.linearVelocityX = moveX.x * playerSlowSpeed;
+        }
+        // 高速移動
+        else
+        {
+            playerRb.linearVelocityX = moveX.x * playerHighSpeed;
+        }
+    }
+    /// <summary>
+    /// Y方向への移動を行う関数
+    /// </summary>
+    /// <param name="moveY"></param>
+    public void PlayerMovementY(Vector2 moveY)
+    {
+        // 低速移動
+        if (controllerManager.slowAction.IsPressed())
+        {
+            playerRb.linearVelocityY = moveY.y * playerSlowSpeed;
+        }
+        // 高速移動
+        else
+        {
+            playerRb.linearVelocityY = moveY.y * playerHighSpeed;
+        }
     }
     /// <summary>
     /// ゲームスタート時の自機の初期設定をする関数

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-// 自機のメインショットの管理をするスクリプト
+// 自機のメインショットの性能を管理をするスクリプト
 
 public class PlayerMeinBullet : MonoBehaviour
 {

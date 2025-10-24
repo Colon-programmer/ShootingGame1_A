@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+// ミーシャ選択時の自機の操作を管理するスクリプト
 
 public class MisyaPerformance : PlayerController
 {

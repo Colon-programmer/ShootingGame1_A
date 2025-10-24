@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+// ポピー選択時の自機の操作を管理するスクリプト
 
 public class PoppyPerformance : PlayerController
 {
@@ -37,6 +38,28 @@ public class PoppyPerformance : PlayerController
     public override void PlayerMove()
     {
         var playermoveValue = controllerManager.moveingAction.ReadValue<Vector2>();
+
+        // 移動範囲の制限を超えていない時のみ移動する
+        // 左の移動制限
+        if (playermoveValue.x <= -0.1f && playerposition.x <= minMoveX)
+        {
+            playermoveValue.x = 0.0f;
+        }
+        // 右の移動制限
+        if (playermoveValue.x >= 0.1f && playerposition.x >= maxMoveX)
+        {
+            playermoveValue.x = 0.0f;
+        }
+        // 下の移動制限
+        if (playermoveValue.y <= -0.1f && playerposition.y <= minMoveY)
+        {
+            playermoveValue.y = 0.0f;
+        }
+        // 上の移動制限
+        if (playermoveValue.y >= 0.1f && playerposition.y >= maxMoveY)
+        {
+            playermoveValue.y = 0.0f;
+        }
 
         if (controllerManager.slowAction.IsPressed())
         {

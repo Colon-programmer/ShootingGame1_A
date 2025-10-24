@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+// ポピー選択時のサブショットを制御するスクリプト
 
 public class PoppySubShots : SubShooters
 {

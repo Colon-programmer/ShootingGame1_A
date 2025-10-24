@@ -34,10 +34,11 @@ public class TitleScript : MonoBehaviour
     [SerializeField] private GameObject titleCanvas; // タイトル画面のキャンバス
     [SerializeField] private GameObject charaselectCanvas; // 自機選択画面のキャンバス
 
-    [SerializeField] private PlayerManager playerManager;
+    private GameObject playerManager; // プレイヤーの情報を持つスクリプトをオブジェクト
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerManager = GameObject.Find("PlayerManager");
         selectSceneNum = Title.title;
         CanvasDisplay(selectSceneNum);
         // 各画面に表示されている選択肢の数を取得する
@@ -58,7 +59,7 @@ public class TitleScript : MonoBehaviour
         if (selectSceneNum == Title.title)
         {
             // 上方向ボタンを押されたとき
-            if (inputUI.upAction.WasPressedThisFrame())
+            if (inputUI.upAction.triggered)
             {
                 titleselectNumber -= 1;
                 if (titleselectNumber < 0)
@@ -67,7 +68,7 @@ public class TitleScript : MonoBehaviour
                 }
             }
             // 下方向ボタンを押されたとき
-            if (inputUI.downAction.WasPressedThisFrame())
+            if (inputUI.downAction.triggered)
             {
                 titleselectNumber += 1;
                 if (titleselectNumber > (sbyte)(titleselectAmount - 1))
@@ -75,7 +76,7 @@ public class TitleScript : MonoBehaviour
                     titleselectNumber = 0;
                 }
             }
-            if (inputUI.nextAction.WasPressedThisFrame())
+            if (inputUI.nextAction.triggered)
             {
                 switch (titleselectNumber)
                 {
@@ -96,10 +97,10 @@ public class TitleScript : MonoBehaviour
             titleselectFrame.rectTransform.localPosition = titleTexts[titleselectNumber].rectTransform.localPosition;
         }
         // 自機選択画面での操作
-        if (selectSceneNum == Title.charaselect)
+        else if (selectSceneNum == Title.charaselect)
         {
             // 左方向ボタンを押されたとき
-            if (inputUI.leftAction.WasPressedThisFrame())
+            if (inputUI.leftAction.triggered)
             {
                 charaselectNumber -= 1;
                 if (charaselectNumber < 0)
@@ -108,7 +109,7 @@ public class TitleScript : MonoBehaviour
                 }
             }
             // 右方向ボタンを押されたとき
-            if (inputUI.rightAction.WasPressedThisFrame())
+            if (inputUI.rightAction.triggered)
             {
                 charaselectNumber += 1;
                 if (charaselectNumber > (sbyte)(charaselectAmount - 1))
@@ -116,20 +117,20 @@ public class TitleScript : MonoBehaviour
                     charaselectNumber = 0;
                 }
             }
-            if (inputUI.nextAction.WasPressedThisFrame())
+            if (inputUI.nextAction.triggered)
             {
                 switch (charaselectNumber)
                 {
                     case 0:
-                        playerManager.playerSelect = PlayerManager.PLAYER.MISYA;
+                        playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.MISYA;
                         break;
                     case 1:
-                        playerManager.playerSelect = PlayerManager.PLAYER.POPPY;
+                        playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.POPPY;
                         break;
                 }
                 SceneManager.LoadScene("TestScene");
             }
-            if (inputUI.backAction.WasPressedThisFrame())
+            if (inputUI.backAction.triggered)
             {
                 selectSceneNum = Title.title;
             }

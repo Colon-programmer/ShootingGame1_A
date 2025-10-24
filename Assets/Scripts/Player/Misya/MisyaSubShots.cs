@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+// ミーシャ選択時のサブショットを制御するスクリプト
 public class MisyaSubShots : SubShooters
 {
     public enum LeftAndRight

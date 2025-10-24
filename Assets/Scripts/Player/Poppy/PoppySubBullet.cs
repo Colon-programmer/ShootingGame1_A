@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+// ポピーを選択した時の自機のサブショットの性能を管理をするスクリプト
 
 public class PoppySubBullet : MonoBehaviour
 {
