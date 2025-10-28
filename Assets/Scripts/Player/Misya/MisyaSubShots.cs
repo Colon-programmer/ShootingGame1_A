@@ -43,14 +43,14 @@ public class MisyaSubShots : SubShooters
                     GameObject slowBullets;
                     slowBullets = Instantiate(slowsubBullet,
                         this.transform.position, Quaternion.identity, ShotsField.transform);
-                    slowBullets.transform.eulerAngles = new Vector3(0, 0, 15);
+                    slowBullets.transform.eulerAngles = new Vector3(0, 0, 10);
                 }
                 if (subPosition == LeftAndRight.Right) // 自機より右のサブショット
                 {
                     GameObject slowBullets;
                     slowBullets = Instantiate(slowsubBullet,
                         this.transform.position, Quaternion.identity, ShotsField.transform);
-                    slowBullets.transform.eulerAngles = new Vector3(0, 0, -15);
+                    slowBullets.transform.eulerAngles = new Vector3(0, 0, -10);
                 }
             }
             
@@ -59,11 +59,11 @@ public class MisyaSubShots : SubShooters
         // 高速時
         else
         {
-            subshotinterval = 0.2f;
+            subshotinterval = 0.15f;
             Instantiate(subBullet,
-                new Vector2(this.transform.position.x - 0.2f, this.transform.position.y), Quaternion.identity, ShotsField.transform);
+                new Vector2(this.transform.position.x - 0.1f, this.transform.position.y), Quaternion.identity, ShotsField.transform);
             Instantiate(subBullet,
-                new Vector2(this.transform.position.x + 0.2f, this.transform.position.y), Quaternion.identity, ShotsField.transform);
+                new Vector2(this.transform.position.x + 0.1f, this.transform.position.y), Quaternion.identity, ShotsField.transform);
             subshottime = 0.0f;
         }
     }
