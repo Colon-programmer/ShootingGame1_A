@@ -5,7 +5,7 @@ public class MobEnemiesManager : MonoBehaviour
 {
     protected int enemyHp; // 雑魚敵の体力
 
-    protected float appearanceTime; // 雑魚敵の出現時間(0になると自動で消えるようにする)
+    protected float appearanceArea = 5.5f; // 雑魚敵の出現範囲
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -15,9 +15,16 @@ public class MobEnemiesManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.transform.position.x >= appearanceArea ||
+            this.transform.position.x <= -appearanceArea ||
+            this.transform.position.y >= appearanceArea ||
+            this.transform.position.y <= -appearanceArea)
+        {
+            EnemyDestrol();
+        }
         if (enemyHp <= 0)
         {
-            Destroy(this.gameObject);
+            EnemyDestrol();
         }
     }
 
@@ -27,5 +34,10 @@ public class MobEnemiesManager : MonoBehaviour
         {
             enemyHp -= other.GetComponent<PlayerAttackAmounts>().damageAmount;
         }
+    }
+
+    void EnemyDestrol()
+    {
+        Destroy(this.gameObject);
     }
 }

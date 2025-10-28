@@ -13,7 +13,7 @@ public class PoppySubBullet : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         subshotRb.AddForce(transform.up * subshotspeed, ForceMode2D.Force);
         if (subshotRb.linearVelocity.magnitude > maxspeed)
@@ -21,6 +21,15 @@ public class PoppySubBullet : MonoBehaviour
             subshotRb.linearVelocity = subshotRb.linearVelocity.normalized * maxspeed;
         }
         if (subshotRb.transform.position.y >= 6.0f)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // 敵にヒットした時にヒットした弾を消す
+        if (col.CompareTag("Enemy"))
         {
             Destroy(this.gameObject);
         }

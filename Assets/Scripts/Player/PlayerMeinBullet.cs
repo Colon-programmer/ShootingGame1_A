@@ -26,4 +26,13 @@ public class PlayerMeinBullet : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // 敵にヒットした時にヒットした弾を消す
+        if (col.CompareTag("Enemy"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

@@ -10,7 +10,7 @@ public class MisyaPerformance : PlayerController
 
     public override void SubShooterSetting()
     {
-        // サブショットの位置を設定
+        // サブショットの位置を設定 ([現在の開放段階, 開放段階が奇数か偶数か])
         // 高速時
         // パワーが1以上で使えるサブショット
         fastsubshooterLayout[0, 0] = new Vector2(-0.8f, 0.0f);
@@ -32,10 +32,10 @@ public class MisyaPerformance : PlayerController
         slowsubshooterLayout[1, 0] = new Vector2(0.25f, 0.0f);
         slowsubshooterLayout[1, 1] = new Vector2(0.5f, 0.0f);
         // パワーが3以上で使えるサブショット
-        slowsubshooterLayout[2, 0] = new Vector2(-0.75f, 0.0f);
+        slowsubshooterLayout[2, 0] = new Vector2(-0.5f, 0.0f);
         slowsubshooterLayout[2, 1] = new Vector2(-0.5f, 0.0f);
         // パワーが4以上で使えるサブショット
-        slowsubshooterLayout[3, 0] = new Vector2(0.75f, 0.0f);
+        slowsubshooterLayout[3, 0] = new Vector2(0.5f, 0.0f);
         slowsubshooterLayout[3, 1] = new Vector2(0.0f,-1.0f);
         // サブショットの発射口を生成
         subshooterObj[0] = Instantiate(subshooter, fastsubshooterLayout[0, 0],
