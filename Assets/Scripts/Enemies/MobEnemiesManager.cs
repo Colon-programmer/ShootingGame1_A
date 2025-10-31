@@ -3,13 +3,13 @@
 
 public class MobEnemiesManager : MonoBehaviour
 {
-    protected int enemyHp; // 雑魚敵の体力
+    public int enemyHp; // 雑魚敵の体力
 
     protected float appearanceArea = 5.5f; // 雑魚敵の出現範囲
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        enemyHp = 1; // 生成時に値を受け取りますが念のため0以上の初期値を設定
     }
 
     // Update is called once per frame
@@ -39,5 +39,14 @@ public class MobEnemiesManager : MonoBehaviour
     void EnemyDestrol()
     {
         Destroy(this.gameObject);
+    }
+
+    /// <summary>
+    /// 雑魚敵の体力のゲッター
+    /// </summary>
+    int getmovepattern
+    {
+        get { return this.enemyHp; }
+        set { this.enemyHp = value; }
     }
 }

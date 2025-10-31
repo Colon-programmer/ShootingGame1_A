@@ -16,7 +16,7 @@ public class TestStageSpawn : MonoBehaviour
         spawnflag[0] = true;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         stageTimer -= Time.deltaTime;
         // タイマーが〇になったら敵が出るようにする
@@ -31,9 +31,23 @@ public class TestStageSpawn : MonoBehaviour
     {
         for (int i = 0; i < 10; i++)
         {
+            // コウモリ敵を生成
             GameObject testbat;
             testbat = Instantiate(bats, new Vector2(5.0f, 5.0f), Quaternion.identity);
+            // 体力設定
+            testbat.GetComponent<MobEnemiesManager>().enemyHp = 50;
+            // 進行方向設定
             testbat.transform.eulerAngles = new Vector3(0, 0, 120);
+
+            yield return new WaitForSeconds(0.5f);
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            GameObject testbat;
+            testbat = Instantiate(bats, new Vector2(-5.0f, 5.0f), Quaternion.identity);
+            testbat.GetComponent<MobEnemiesManager>().enemyHp = 50;
+            testbat.transform.eulerAngles = new Vector3(0, 0, -120);
 
             yield return new WaitForSeconds(0.5f);
         }
