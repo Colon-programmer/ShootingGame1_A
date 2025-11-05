@@ -6,6 +6,8 @@ public class MobEnemiesManager : MonoBehaviour
     public int enemyHp; // 雑魚敵の体力
 
     protected float appearanceArea = 5.5f; // 雑魚敵の出現範囲
+
+    [SerializeField] private GameObject dropitme; // 倒した時に落とすアイテム
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -24,6 +26,8 @@ public class MobEnemiesManager : MonoBehaviour
         }
         if (enemyHp <= 0)
         {
+            // アイテムを落とす
+            Instantiate(dropitme, this.transform.position, Quaternion.identity);
             EnemyDestrol();
         }
     }

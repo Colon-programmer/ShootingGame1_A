@@ -224,4 +224,16 @@ public class PlayerController : MonoBehaviour
     {
 
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // パワーアイテムかどうかを調べる
+        if (col.gameObject.TryGetComponent(out PowerItemEffect pItem))
+        {
+            // パワーを増やす
+            shotPower = shotPower + pItem.powerAmount;
+            // 獲得したアイテムを消滅させる
+            Destroy(col.gameObject);
+        }
+    }
 }

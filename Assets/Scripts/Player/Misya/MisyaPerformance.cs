@@ -13,16 +13,16 @@ public class MisyaPerformance : PlayerController
         // サブショットの位置を設定 ([現在の開放段階, 開放段階が奇数か偶数か])
         // 高速時
         // パワーが1以上で使えるサブショット
-        fastsubshooterLayout[0, 0] = new Vector2(-0.8f, 0.0f);
+        fastsubshooterLayout[0, 0] = new Vector2(-0.9f, 0.0f);
         fastsubshooterLayout[0, 1] = new Vector2(0.0f, 1.0f);
         // パワーが2以上で使えるサブショット
-        fastsubshooterLayout[1, 0] = new Vector2(0.8f, 0.0f);
-        fastsubshooterLayout[1, 1] = new Vector2(0.8f, 0.0f);
+        fastsubshooterLayout[1, 0] = new Vector2(0.9f, 0.0f);
+        fastsubshooterLayout[1, 1] = new Vector2(0.9f, 0.0f);
         // パワーが3以上で使えるサブショット
-        fastsubshooterLayout[2, 0] = new Vector2(-1.6f, 0.0f);
-        fastsubshooterLayout[2, 1] = new Vector2(-0.8f, 0.0f);
+        fastsubshooterLayout[2, 0] = new Vector2(-1.8f, 0.0f);
+        fastsubshooterLayout[2, 1] = new Vector2(-0.9f, 0.0f);
         // パワーが4以上で使えるサブショット
-        fastsubshooterLayout[3, 0] = new Vector2(1.6f, 0.0f);
+        fastsubshooterLayout[3, 0] = new Vector2(1.8f, 0.0f);
         fastsubshooterLayout[3, 1] = new Vector2(0.0f, -1.0f);
         // 低速時
         // パワーが1以上で使えるサブショット
