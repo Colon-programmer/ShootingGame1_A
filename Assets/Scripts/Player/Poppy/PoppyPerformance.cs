@@ -5,6 +5,7 @@ public class PoppyPerformance : PlayerController
 {
     private float positionResetInterval = 1.0f; // サブショットの位置固定状態の解除に掛かる時間
     private float resetTimer = 0.0f; // 位置固定状態の解除をする時間を測る
+    
     public override void CharacterDefaultSetting()
     {
         playerHighSpeed = 5.5f;

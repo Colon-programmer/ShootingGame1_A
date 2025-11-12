@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     protected float playerSlowSpeed = 2.0f; // 自機の低速時移動速度
 
     [SerializeField] protected float shotPower; // 1.0につき1つサブショットを開放することができるショットパワーの変数
+    private float shotMaxPower = 4.0f; // 溜められるパワーの上限値
 
     protected GameObject shotsField; // 弾専用の親オブジェクト
 
@@ -232,6 +233,11 @@ public class PlayerController : MonoBehaviour
         {
             // パワーを増やす
             shotPower = shotPower + pItem.powerAmount;
+            // パワーが上限値を超えないようにする
+            if (shotPower > shotMaxPower)
+            {
+                shotPower = shotMaxPower;
+            }
             // 獲得したアイテムを消滅させる
             Destroy(col.gameObject);
         }

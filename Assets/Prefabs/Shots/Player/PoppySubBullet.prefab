@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: -6437517287613871017}
   - component: {fileID: -4421100774425911449}
   - component: {fileID: 5201135550227294208}
+  - component: {fileID: 4187220229404319496}
   m_Layer: 0
   m_Name: PoppySubBullet
-  m_TagString: Untagged
+  m_TagString: PlayerShots
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -175,3 +176,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 513dbc8e1315b5e41b01ca834e21256e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4187220229404319496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2818666618730901940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a6bc86c7407794b9c67228d7a4970d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 50

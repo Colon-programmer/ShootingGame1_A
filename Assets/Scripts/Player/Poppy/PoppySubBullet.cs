@@ -4,8 +4,8 @@
 public class PoppySubBullet : MonoBehaviour
 {
     private Rigidbody2D subshotRb; // サブショットのRigidbody
-    private float subshotspeed = 5.0f; // サブショットの弾速
-    private float maxspeed = 40.0f; // サブショットの最高速
+    private float subshotspeed = 10.0f; // サブショットの弾速
+    private float maxspeed = 50.0f; // サブショットの最高速
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
