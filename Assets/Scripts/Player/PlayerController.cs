@@ -29,17 +29,24 @@ public class PlayerController : MonoBehaviour
     protected Rigidbody2D[] subshooterRigidbody = new Rigidbody2D[4]; // サブショットの発射口のRigidbody
     protected GameObject subShooterCenter; // サブショットの発射口の移動を自機と別にするためのオブジェクト
 
+    private sbyte lifeNum; // 残機数
+    private sbyte bombNum; // 所持ボム数
+
     // それぞれの方向の移動制限
-    protected float maxMoveX = 4.5f;
-    protected float minMoveX = -4.5f;
-    protected float maxMoveY = 4.5f;
-    protected float minMoveY = -4.5f;
+    protected float maxMoveX = 3.7f;
+    protected float minMoveX = -4.8f;
+    protected float maxMoveY = 4.2f;
+    protected float minMoveY = -4.3f;
 
     public void Start()
     {
         // プレイヤーのRigidbodyを取得する
         playerRb = GetComponent<Rigidbody2D>();
-        shotPower = 0.0f;
+        // ゲーム開始時の初期値を設定
+        GameObject playermanager = GameObject.Find("PlayerManager");
+        shotPower = playermanager.GetComponent<PlayerManager>().powerdefault;
+        lifeNum = playermanager.GetComponent<PlayerManager>().lifedefault;
+        bombNum = playermanager.GetComponent<PlayerManager>().bombdefault;
         // ControllerManagerを取得する
         controllerObj = GameObject.Find("Controller");
         controllerManager = controllerObj.GetComponent<ControllerManager>();

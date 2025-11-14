@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -5860394886447251862, guid: da17a3d03fafb914fa082a7cd4fd0102, type: 3}
+  m_Sprite: {fileID: 8463092419888243550, guid: 8fa64db159800234e8148475eea0ade7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -130,3 +130,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subBullet: {fileID: 2818666618730901940, guid: 55b2e7978f15e724280d1841f88e3b48, type: 3}
   subNumber: 0
+  poppyhighShooterColor:
+    serializedVersion: 2
+    rgba: 0
+  poppyslowShooterColor:
+    serializedVersion: 2
+    rgba: 0
