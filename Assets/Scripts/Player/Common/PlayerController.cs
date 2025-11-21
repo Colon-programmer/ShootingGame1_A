@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 // 自機の操作を管理するスクリプト
 
 public class PlayerController : MonoBehaviour
@@ -32,11 +33,20 @@ public class PlayerController : MonoBehaviour
     private sbyte lifeNum; // 残機数
     private sbyte bombNum; // 所持ボム数
 
+    private GameObject life_bombimageGenerate; // 残機数とボム数を表示するオブジェクト
+
     // それぞれの方向の移動制限
     protected float maxMoveX = 3.7f;
     protected float minMoveX = -4.8f;
     protected float maxMoveY = 4.2f;
     protected float minMoveY = -4.3f;
+
+    [SerializeField] PlayerDeadPoint deadpoint; // やられ判定のスクリプト
+    float respawntime = 0.0f; // 復活までの時間を測る
+    float respawninterval = 1.0f; // 復活までに掛かる時間
+    [SerializeField] SpriteRenderer playerSprite; // 自機のスプライト
+
+    [SerializeField] private GameObject slowEffect; // 低速移動時に表示されるマーク
 
     public void Start()
     {
@@ -54,6 +64,12 @@ public class PlayerController : MonoBehaviour
         shotsField = GameObject.Find("ShotsField");
         // サブショットの発射口の座標用オブジェクトを取得する
         subShooterCenter = GameObject.Find("subWeapon");
+        // 残機数とボム数を表示するオブジェクト
+        life_bombimageGenerate = GameObject.Find("Life&BombIcons");
+        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = lifeNum;
+        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getbomb = bombNum;
+
+        slowEffect.SetActive(false);
         // 自機の移動速度を設定する
         CharacterDefaultSetting();
         // サブショットの発射口を配置する
@@ -61,31 +77,55 @@ public class PlayerController : MonoBehaviour
     }
     public virtual void Update()
     {
-        ShotPowerCheck();
-        PlayerMove();
-        // ショット
-        playerposition = this.transform.position;
-        if (controllerManager.shottingAction.IsPressed())
+        // 敵に倒されたとき
+        if (deadpoint.deadflag)
         {
-            meinshottime += Time.deltaTime;
-            if (meinshottime >= meinshotinterval)
+            // 残機を減らす
+            life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = lifeNum;
+            // 自機を透明にする
+            playerSprite.color = new Color32(255, 255, 255, 0);
+            // 自機の移動を止める
+            playerRb.linearVelocity = Vector2.zero;
+            // 少し時間を経過してから復活する
+            respawntime += Time.deltaTime;
+            if (respawntime >= respawninterval)
             {
-                // メインショットを撃つ
-                Instantiate(meinshottingPrefab,
-                    new Vector2(playerposition.x - 0.25f, playerposition.y), Quaternion.identity,
-                    shotsField.transform);
-                Instantiate(meinshottingPrefab,
-                    new Vector2(playerposition.x + 0.25f, playerposition.y), Quaternion.identity,
-                    shotsField.transform);
-                meinshottime = 0.0f; // 時間をリセットする
+                playerRb.transform.position = new Vector2(0.0f, -3.0f); // 初期位置に戻す
+                respawntime = 0.0f;
+                deadpoint.deadflag = false;
             }
         }
+        // 通常時は操作可能にする
         else
         {
-            // 連打でインターバル以上に弾を出さないようにしつつ、押しなおしたらすぐに弾が出るようにする
-            if (meinshottime < meinshotinterval)
+            // 自機を見えるようにする
+            playerSprite.color = new Color32(255, 255, 255, 255);
+            ShotPowerCheck();
+            PlayerMove();
+            // ショット
+            playerposition = this.transform.position;
+            if (controllerManager.shottingAction.IsPressed())
             {
                 meinshottime += Time.deltaTime;
+                if (meinshottime >= meinshotinterval)
+                {
+                    // メインショットを撃つ
+                    Instantiate(meinshottingPrefab,
+                        new Vector2(playerposition.x - 0.25f, playerposition.y), Quaternion.identity,
+                        shotsField.transform);
+                    Instantiate(meinshottingPrefab,
+                        new Vector2(playerposition.x + 0.25f, playerposition.y), Quaternion.identity,
+                        shotsField.transform);
+                    meinshottime = 0.0f; // 時間をリセットする
+                }
+            }
+            else
+            {
+                // 連打でインターバル以上に弾を出さないようにしつつ、押しなおしたらすぐに弾が出るようにする
+                if (meinshottime < meinshotinterval)
+                {
+                    meinshottime += Time.deltaTime;
+                }
             }
         }
     }
@@ -164,11 +204,13 @@ public class PlayerController : MonoBehaviour
         if (controllerManager.slowAction.IsPressed())
         {
             playerRb.linearVelocity = new Vector2(playermoveValue.x * playerSlowSpeed, playermoveValue.y * playerSlowSpeed);
+            slowEffect.SetActive(true);
         }
         // 高速移動
         else
         {
             playerRb.linearVelocity = new Vector2(playermoveValue.x * playerHighSpeed, playermoveValue.y * playerHighSpeed);
+            slowEffect.SetActive(false);
         }
 
         subShooterCenter.transform.position = new Vector2(playerRb.position.x,
@@ -233,6 +275,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public sbyte getlifeNum
+    {
+        get { return this.lifeNum; }
+        set { this.lifeNum = value; }
+    }
     private void OnTriggerEnter2D(Collider2D col)
     {
         // パワーアイテムかどうかを調べる

@@ -44,13 +44,4 @@ public class MobEnemiesManager : MonoBehaviour
     {
         Destroy(this.gameObject);
     }
-
-    /// <summary>
-    /// 雑魚敵の体力のゲッター
-    /// </summary>
-    int getmovepattern
-    {
-        get { return this.enemyHp; }
-        set { this.enemyHp = value; }
-    }
 }

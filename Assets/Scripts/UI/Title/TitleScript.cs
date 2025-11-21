@@ -21,7 +21,7 @@ public class TitleScript : MonoBehaviour
 
     private sbyte titleselectNumber; // タイトル画面で今どれを選んでいるのかを指定する変数
 
-    [SerializeField] private Image[] charaImages; // 自機の選択肢
+    [SerializeField] private TextMeshProUGUI[] charaselects; // 自機の選択肢
 
     [SerializeField] private Image charaselectFrame; // 自機選択画面で今どれを選んでいるのかを表示する額縁
 
@@ -43,11 +43,11 @@ public class TitleScript : MonoBehaviour
         CanvasDisplay(selectSceneNum);
         // 各画面に表示されている選択肢の数を取得する
         titleselectAmount = (sbyte)titleTexts.Length;
-        charaselectAmount = (sbyte)charaImages.Length;
+        charaselectAmount = (sbyte)charaselects.Length;
         // 最初に選ばれた状態にする項目を設定する
         titleselectFrame.rectTransform.localPosition = titleTexts[0].rectTransform.localPosition;
         titleselectNumber = 0;
-        charaselectFrame.rectTransform.localPosition = charaImages[0].rectTransform.localPosition;
+        charaselectFrame.rectTransform.localPosition = charaselects[0].rectTransform.localPosition;
         charaselectNumber = 0;
     }
 
@@ -99,8 +99,8 @@ public class TitleScript : MonoBehaviour
         // 自機選択画面での操作
         else if (selectSceneNum == Title.charaselect)
         {
-            // 左方向ボタンを押されたとき
-            if (inputUI.leftAction.triggered)
+            // 上方向ボタンを押されたとき
+            if (inputUI.upAction.triggered)
             {
                 charaselectNumber -= 1;
                 if (charaselectNumber < 0)
@@ -108,8 +108,8 @@ public class TitleScript : MonoBehaviour
                     charaselectNumber = (sbyte)(charaselectAmount - 1);
                 }
             }
-            // 右方向ボタンを押されたとき
-            if (inputUI.rightAction.triggered)
+            // 下方向ボタンを押されたとき
+            if (inputUI.downAction.triggered)
             {
                 charaselectNumber += 1;
                 if (charaselectNumber > (sbyte)(charaselectAmount - 1))
@@ -135,7 +135,7 @@ public class TitleScript : MonoBehaviour
                 selectSceneNum = Title.title;
             }
             // 額縁を動かす
-            charaselectFrame.rectTransform.localPosition = charaImages[charaselectNumber].rectTransform.localPosition;
+            charaselectFrame.rectTransform.localPosition = charaselects[charaselectNumber].rectTransform.localPosition;
         }
     }
     /// <summary>

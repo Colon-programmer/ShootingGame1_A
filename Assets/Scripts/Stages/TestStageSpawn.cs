@@ -36,6 +36,8 @@ public class TestStageSpawn : MonoBehaviour
             testbat = Instantiate(bats, new Vector2(5.0f, 5.0f), Quaternion.identity);
             // ‘Ì—Íİ’è
             testbat.GetComponent<MobEnemiesManager>().enemyHp = 50;
+            // ˆÚ“®‘¬“xİ’è
+            testbat.GetComponent<EnemyMoveManager>().getenemyspeed = 10.0f;
             // is•ûŒüİ’è
             testbat.transform.eulerAngles = new Vector3(0, 0, 120);
 
@@ -47,6 +49,7 @@ public class TestStageSpawn : MonoBehaviour
             GameObject testbat;
             testbat = Instantiate(bats, new Vector2(-5.0f, 5.0f), Quaternion.identity);
             testbat.GetComponent<MobEnemiesManager>().enemyHp = 50;
+            testbat.GetComponent<EnemyMoveManager>().getenemyspeed = 10.0f;
             testbat.transform.eulerAngles = new Vector3(0, 0, -120);
 
             yield return new WaitForSeconds(0.5f);
