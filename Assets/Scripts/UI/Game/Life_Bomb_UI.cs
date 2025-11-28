@@ -35,6 +35,8 @@ public class Life_Bomb_UI : MonoBehaviour
                 // 持っていない分を非表示する
                 lifeimage[inoon].enabled = false;
             }
+            // 変わった残機の数を覚える
+            nowlife = life;
         }
         // ボム数が覚えていた数と違う時
         if (bomb != nowbomb)
@@ -50,6 +52,8 @@ public class Life_Bomb_UI : MonoBehaviour
                 // 持っていない分を非表示する
                 bombimage[bnoon].enabled = false;
             }
+            // 変わったボムの数を覚える
+            nowbomb = bomb;
         }
     }
 

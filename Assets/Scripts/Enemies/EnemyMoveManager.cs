@@ -11,23 +11,17 @@ public class EnemyMoveManager : MonoBehaviour
     private int movepattern; // 敵の移動パターンを指定する変数
 
     [SerializeField] private GameObject enemybullet; // 敵の出す弾
-
-    private GameObject playerposition;
-
-    private bool attackflag = true; // 攻撃が終わったかを管理するフラグ
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
-        // 自機を探す
-        playerposition = GameObject.FindWithTag("Player");
+        StartCoroutine("TestAttack");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         TestMove();
-        StartCoroutine("TestAttack");
     }
 
     void TestMove()
@@ -40,16 +34,11 @@ public class EnemyMoveManager : MonoBehaviour
     }
     IEnumerator TestAttack()
     {
-        if (attackflag)
-        {
-            yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.5f);
 
-            GameObject bullets = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
+        GameObject bullets = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
 
-            bullets.GetComponent<EnemyBullets>().getenemybulletspeed = 6.0f;
-
-            attackflag = false;
-        }
+        bullets.GetComponent<EnemyBullets>().getenemybulletspeed = 6.0f;
     }
     /// <summary>
     /// 敵の移動パターンを指定する変数のゲッター
