@@ -128,7 +128,7 @@ public class TitleScript : MonoBehaviour
                         playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.POPPY;
                         break;
                 }
-                SceneManager.LoadScene("TestScene");
+                SceneManager.LoadScene("Stage_01");
             }
             if (inputUI.backAction.triggered)
             {

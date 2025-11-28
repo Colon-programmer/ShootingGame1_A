@@ -3,6 +3,11 @@
 
 public class EnemySpawnManager : MonoBehaviour
 {
+    protected float stageTimer; // ステージが始まってからの時間を計り、敵の出現タイミングを制御するために使う変数
+
+    protected bool[] spawnflag;
+
+    [SerializeField] protected GameObject bats;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
