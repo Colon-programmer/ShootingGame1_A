@@ -4,22 +4,22 @@ using System.Collections;
 
 public class EnemyMoveManager : MonoBehaviour
 {
-    private Rigidbody2D enemyRb;
+    protected Rigidbody2D enemyRb;
 
-    private float enemyspeed;
+    protected float enemyspeed;
 
-    private int movepattern; // 敵の移動パターンを指定する変数
+    protected int movepattern; // 敵の移動パターンを指定する変数
 
-    [SerializeField] private GameObject enemybullet; // 敵の出す弾
+    [SerializeField] protected GameObject enemybullet; // 敵の出す弾
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public virtual void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
         StartCoroutine("TestAttack");
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         TestMove();
     }
