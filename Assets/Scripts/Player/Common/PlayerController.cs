@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
     protected Rigidbody2D[] subshooterRigidbody = new Rigidbody2D[4]; // サブショットの発射口のRigidbody
     protected GameObject subShooterCenter; // サブショットの発射口の移動を自機と別にするためのオブジェクト
 
-    private sbyte lifeNum; // 残機数
-    private sbyte bombNum; // 所持ボム数
+    private sbyte playerlife; // 残機数
+    private sbyte playerbomb; // 所持ボム数
 
     private GameObject life_bombimageGenerate; // 残機数とボム数を表示するオブジェクト
 
@@ -53,10 +53,9 @@ public class PlayerController : MonoBehaviour
         // プレイヤーのRigidbodyを取得する
         playerRb = GetComponent<Rigidbody2D>();
         // ゲーム開始時の初期値を設定
-        GameObject playermanager = GameObject.Find("PlayerManager");
-        shotPower = playermanager.GetComponent<PlayerManager>().powerdefault;
-        lifeNum = playermanager.GetComponent<PlayerManager>().lifedefault;
-        bombNum = playermanager.GetComponent<PlayerManager>().bombdefault;
+        shotPower = GetComponent<ItemNumManager>().getpowerNum;
+        playerlife = GetComponent<ItemNumManager>().getlifeNum;
+        playerbomb = GetComponent<ItemNumManager>().getbombNum;
         // ControllerManagerを取得する
         controllerObj = GameObject.Find("Controller");
         controllerManager = controllerObj.GetComponent<ControllerManager>();
@@ -66,8 +65,8 @@ public class PlayerController : MonoBehaviour
         subShooterCenter = GameObject.Find("subWeapon");
         // 残機数とボム数を表示するオブジェクト
         life_bombimageGenerate = GameObject.Find("Life&BombIcons");
-        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = lifeNum;
-        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getbomb = bombNum;
+        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = playerlife;
+        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getbomb = playerbomb;
 
         slowEffect.SetActive(false);
         // 自機の移動速度を設定する
@@ -81,7 +80,7 @@ public class PlayerController : MonoBehaviour
         if (deadpoint.deadflag)
         {
             // 残機を減らす
-            life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = lifeNum;
+            life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = playerlife;
             // 自機を透明にする
             playerSprite.color = new Color32(255, 255, 255, 0);
             // 自機の移動を止める
@@ -277,8 +276,8 @@ public class PlayerController : MonoBehaviour
 
     public sbyte getlifeNum
     {
-        get { return this.lifeNum; }
-        set { this.lifeNum = value; }
+        get { return this.playerlife; }
+        set { this.playerlife = value; }
     }
     private void OnTriggerEnter2D(Collider2D col)
     {
