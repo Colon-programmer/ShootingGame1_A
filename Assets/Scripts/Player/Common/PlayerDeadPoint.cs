@@ -10,6 +10,8 @@ public class PlayerDeadPoint : MonoBehaviour
 
     private bool gameoverflag = false; // ゲームオーバーフラグ
 
+    private long shotPowerlong; // パワーの固定小数点
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,6 +23,32 @@ public class PlayerDeadPoint : MonoBehaviour
     {
         
     }
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        // パワーアイテムかどうかを調べる
+        if (col.gameObject.TryGetComponent(out PowerItemEffect pItem))
+        {
+            // パワーを取得する
+            int numpower = playerobj.GetComponent<PlayerController>().getshotPower;
+            // パワーを増やす
+            numpower = numpower + pItem.powerAmount;
+            // パワーが上限値を超えないようにする
+            if (numpower > playerobj.GetComponent<PlayerController>().getshotMaxPower)
+            {
+                numpower = playerobj.GetComponent<PlayerController>().getshotMaxPower;
+            }
+            // パワーの表示を変える
+            playerobj.GetComponent<PlayerController>().
+                getitemDisplayer.GetComponent<ItemNumManager>().getpowerNum = numpower;
+            // 獲得したアイテムを消滅させる
+            Destroy(col.gameObject);
+            playerobj.GetComponent<PlayerController>().getshotPower = numpower;
+            Debug.Log(playerobj.GetComponent<PlayerController>().getshotPower);
+
+        }
+    }
+
 
     private void OnTriggerStay2D(Collider2D col)
     {

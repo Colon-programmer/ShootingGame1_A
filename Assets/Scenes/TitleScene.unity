@@ -1229,7 +1229,7 @@ MonoBehaviour:
   playerSelect: 0
   lifedefault: 2
   bombdefault: 2
-  powerdefault: 1
+  powerdefault: 100
 --- !u!4 &1708223552
 Transform:
   m_ObjectHideFlags: 0

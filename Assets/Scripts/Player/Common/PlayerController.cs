@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
     protected float playerHighSpeed; // 自機の高速時移動速度
     protected float playerSlowSpeed = 2.0f; // 自機の低速時移動速度
 
-    [SerializeField] protected float shotPower; // 1.0につき1つサブショットを開放することができるショットパワーの変数
-    private float shotMaxPower = 4.0f; // 溜められるパワーの上限値
+    [SerializeField] protected int shotPower; // 1.0につき1つサブショットを開放することができるショットパワーの変数
+    private int shotMaxPower = 400; // 溜められるパワーの上限値
 
     protected GameObject shotsField; // 弾専用の親オブジェクト
 
@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private sbyte playerlife; // 残機数
     private sbyte playerbomb; // 所持ボム数
 
-    private GameObject life_bombimageGenerate; // 残機数とボム数を表示するオブジェクト
+    private GameObject itemDisplayer; // アイテムの所持数を表示するオブジェクト
 
     // それぞれの方向の移動制限
     protected float maxMoveX = 3.7f;
@@ -53,9 +53,11 @@ public class PlayerController : MonoBehaviour
         // プレイヤーのRigidbodyを取得する
         playerRb = GetComponent<Rigidbody2D>();
         // ゲーム開始時の初期値を設定
-        shotPower = GetComponent<ItemNumManager>().getpowerNum;
-        playerlife = GetComponent<ItemNumManager>().getlifeNum;
-        playerbomb = GetComponent<ItemNumManager>().getbombNum;
+        itemDisplayer = GameObject.Find("ItemDisplayer");
+        
+        shotPower = itemDisplayer.GetComponent<ItemNumManager>().getpowerNum;
+        playerlife = itemDisplayer.GetComponent<ItemNumManager>().getlifeNum;
+        playerbomb = itemDisplayer.GetComponent<ItemNumManager>().getbombNum;
         // ControllerManagerを取得する
         controllerObj = GameObject.Find("Controller");
         controllerManager = controllerObj.GetComponent<ControllerManager>();
@@ -63,10 +65,6 @@ public class PlayerController : MonoBehaviour
         shotsField = GameObject.Find("ShotsField");
         // サブショットの発射口の座標用オブジェクトを取得する
         subShooterCenter = GameObject.Find("subWeapon");
-        // 残機数とボム数を表示するオブジェクト
-        life_bombimageGenerate = GameObject.Find("Life&BombIcons");
-        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = playerlife;
-        life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getbomb = playerbomb;
 
         slowEffect.SetActive(false);
         // 自機の移動速度を設定する
@@ -80,7 +78,7 @@ public class PlayerController : MonoBehaviour
         if (deadpoint.deadflag)
         {
             // 残機を減らす
-            life_bombimageGenerate.GetComponent<Life_Bomb_UI>().getlife = playerlife;
+            itemDisplayer.GetComponent<ItemNumManager>().getlifeNum = playerlife;
             // 自機を透明にする
             playerSprite.color = new Color32(255, 255, 255, 0);
             // 自機の移動を止める
@@ -134,7 +132,7 @@ public class PlayerController : MonoBehaviour
     public virtual void ShotPowerCheck()
     {
         // パワーが4.0以上の時
-        if (shotPower >= 4.0f)
+        if (shotPower >= 400)
         {
             subshooterObj[3].SetActive(true);
         }
@@ -144,7 +142,7 @@ public class PlayerController : MonoBehaviour
             subshooterObj[3].SetActive(false);
         }
         // パワーが3.0以上の時
-        if (shotPower >= 3.0f)
+        if (shotPower >= 300)
         {
             subshooterObj[2].SetActive(true);
         }
@@ -153,7 +151,7 @@ public class PlayerController : MonoBehaviour
             subshooterObj[2].SetActive(false);
         }
         // パワーが2.0以上の時
-        if (shotPower >= 2.0f)
+        if (shotPower >= 200)
         {
             subshooterObj[1].SetActive(true);
         }
@@ -162,7 +160,7 @@ public class PlayerController : MonoBehaviour
             subshooterObj[1].SetActive(false);
         }
         // パワーが1.0以上の時
-        if (shotPower >= 1.0f)
+        if (shotPower >= 100)
         {
             subshooterObj[0].SetActive(true);
         }
@@ -279,20 +277,22 @@ public class PlayerController : MonoBehaviour
         get { return this.playerlife; }
         set { this.playerlife = value; }
     }
-    private void OnTriggerEnter2D(Collider2D col)
+
+    public int getshotPower
     {
-        // パワーアイテムかどうかを調べる
-        if (col.gameObject.TryGetComponent(out PowerItemEffect pItem))
-        {
-            // パワーを増やす
-            shotPower = shotPower + pItem.powerAmount;
-            // パワーが上限値を超えないようにする
-            if (shotPower > shotMaxPower)
-            {
-                shotPower = shotMaxPower;
-            }
-            // 獲得したアイテムを消滅させる
-            Destroy(col.gameObject);
-        }
+        get { return this.shotPower; }
+        set { this.shotPower = value; }
+    }
+
+    public int getshotMaxPower
+    {
+        get { return this.shotMaxPower; }
+        private set { this.shotMaxPower = value; }
+    }
+
+    public GameObject getitemDisplayer
+    {
+        get { return this.itemDisplayer; }
+        set { this.itemDisplayer = value; }
     }
 }

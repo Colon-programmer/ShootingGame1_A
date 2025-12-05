@@ -1302,9 +1302,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 577165628}
+  - component: {fileID: 577165630}
   - component: {fileID: 577165629}
   m_Layer: 5
-  m_Name: Life&BombIcons
+  m_Name: ItemDisplayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1358,7 +1359,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 577165627}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36e520e77905ac948b044ba21eebe748, type: 3}
+  m_Script: {fileID: 11500000, guid: 2368bc9718a79b8469c9835acab894ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &577165630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 577165627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462a335d7a259fc4da3fe4b4f326461a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   lifeimage:
@@ -1383,6 +1396,7 @@ MonoBehaviour:
   - {fileID: 239005758}
   - {fileID: 1327089350}
   - {fileID: 591008387}
+  powerText: {fileID: 801387544}
 --- !u!1001 &591008385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1625,6 +1639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bats: {fileID: 4288631428007354007, guid: 024361296fee9ee4187487e7c0278cb5, type: 3}
+  mid_boss: {fileID: 3716179530802902742, guid: e2c0fd6d348e70d43aec93be47558481, type: 3}
 --- !u!1001 &745228764
 PrefabInstance:
   m_ObjectHideFlags: 0

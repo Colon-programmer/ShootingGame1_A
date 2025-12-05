@@ -66,19 +66,20 @@ public class MisyaPerformance : PlayerController
     {
         sbyte power; // パワーの数値の偶奇を受け渡す変数
         sbyte movetype; // 自機の今の移動が高速か低速かを受け渡す変数
+        float shotPowerFloat = shotPower / 100.0f; // 浮動小数点の方が計算しやすいの変換する
         // 低速時
         if (controllerManager.slowAction.IsPressed())
         {
             movetype = 1;
             // パワーが偶数の時
-            if (Mathf.Floor(shotPower) == 0 || Mathf.Floor(shotPower) % 2 == 0)
+            if (Mathf.Floor(shotPowerFloat) == 0 || Mathf.Floor(shotPowerFloat) % 2 == 0)
             {
                 subshooterObj[0].GetComponent<MisyaSubShots>().getchangeshotangle = false;
                 power = 0;
                 PositionningForLoop(power, movetype);
             }
             // パワーが奇数の時
-            else if (Mathf.Floor(shotPower) % 2 == 1)
+            else if (Mathf.Floor(shotPowerFloat) % 2 == 1)
             {
                 subshooterObj[0].GetComponent<MisyaSubShots>().getchangeshotangle = true;
                 power = 1;
@@ -89,14 +90,14 @@ public class MisyaPerformance : PlayerController
         else
         {
             movetype = 0;
-            if (Mathf.Floor(shotPower) == 0 || Mathf.Floor(shotPower) % 2 == 0)
+            if (Mathf.Floor(shotPowerFloat) == 0 || Mathf.Floor(shotPowerFloat) % 2 == 0)
             {
                 // 真ん中に配置される事が有るサブショットはパワーが偶数の時は斜めにも弾を飛ばすようにする
                 subshooterObj[0].GetComponent<MisyaSubShots>().getchangeshotangle = false;
                 power = 0;
                 PositionningForLoop(power, movetype);
             }
-            else if (Mathf.Floor(shotPower) % 2 == 1)
+            else if (Mathf.Floor(shotPowerFloat) % 2 == 1)
             {
                 // 真ん中に配置される事が有るサブショットはパワーが奇数の時は全て真っ直ぐに弾を飛ばすようにする
                 subshooterObj[0].GetComponent<MisyaSubShots>().getchangeshotangle = true;
@@ -131,7 +132,7 @@ public class MisyaPerformance : PlayerController
                     slowsubshooterLayout[i, num_1] + new Vector2(subShooterCenter.transform.position.x,
                                                                 subShooterCenter.transform.position.y);
                 // パワーが最大の時、一部サブシューターの発射角度を変える
-                if (shotPower >= 4)
+                if (shotPower >= getshotMaxPower)
                 {
                     subshooterObj[i].GetComponent<MisyaSubShots>().getmaxpowerflag = true;
                 }

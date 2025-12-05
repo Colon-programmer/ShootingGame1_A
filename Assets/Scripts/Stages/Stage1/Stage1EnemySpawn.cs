@@ -13,6 +13,10 @@ public class Stage1EnemySpawn : EnemySpawnManager
         {
             spawnflag[flag] = true;
         }
+        for (int flag = 0; flag < bossflag.Length; flag++)
+        {
+            bossflag[flag] = true;
+        }
     }
 
     // Update is called once per frame
@@ -35,6 +39,12 @@ public class Stage1EnemySpawn : EnemySpawnManager
             StartCoroutine("EnemySpawn_1_1");
             StartCoroutine("EnemySpawn_1_2");
             spawnflag[2] = false;
+        }
+
+        if (stageTimer <= 0.0f && bossflag[0])
+        {
+            Mid_Boss_1();
+            bossflag[0] = false;
         }
     }
 
@@ -80,5 +90,11 @@ public class Stage1EnemySpawn : EnemySpawnManager
 
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    void Mid_Boss_1()
+    {
+        Instantiate(mid_boss, new Vector2(5.0f, 5.0f), Quaternion.identity);
+        Debug.Log("起動");
     }
 }

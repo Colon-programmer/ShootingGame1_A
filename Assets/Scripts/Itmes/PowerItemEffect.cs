@@ -3,8 +3,9 @@
 
 public class PowerItemEffect : MonoBehaviour
 {
-    [SerializeField] public float powerAmount; // 取ると取得できるパワーの量
+    [SerializeField] public int powerAmount; // 取ると取得できるパワーの量
     private float itemspeed = 3.0f; // アイテムの落下速度
+    private float maxitemspeed = 6.0f; // 自機に吸い込まれる時の最大速度
     private Rigidbody2D itemrigidbody; // アイテムのRigidbody
     private bool changemove = false;
     private GameObject playerposition; // 自機の位置
@@ -26,9 +27,9 @@ public class PowerItemEffect : MonoBehaviour
             itemVec = (playerposition.transform.position - this.transform.position);
             // 向いている方向に移動する
             itemrigidbody.AddForce(itemVec * itemspeed, ForceMode2D.Impulse);
-            if (itemrigidbody.linearVelocity.magnitude > itemspeed)
+            if (itemrigidbody.linearVelocity.magnitude > maxitemspeed)
             {
-                itemrigidbody.linearVelocity = itemrigidbody.linearVelocity.normalized * itemspeed;
+                itemrigidbody.linearVelocity = itemrigidbody.linearVelocity.normalized * maxitemspeed;
             }
 
         }
