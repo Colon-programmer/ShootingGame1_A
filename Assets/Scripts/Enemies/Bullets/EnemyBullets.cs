@@ -7,19 +7,14 @@ public class EnemyBullets : MonoBehaviour
     private float enemybulletspeed; // 敵の弾の弾速
     private float bulletarea = 6.5f; // 弾が存在できる範囲
 
-    private GameObject playerposition; // 自機の位置
+    protected GameObject playerposition; // 自機の位置
 
-    private Vector2 enemybulletVec; // 敵の弾の移動方向
+    protected Vector2 enemybulletVec; // 敵の弾の移動方向
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public virtual void Start()
     {
         enemybulletRb = GetComponent<Rigidbody2D>();
-
-        // 自機を探す
-        playerposition = GameObject.FindWithTag("Player");
-        // 自機の位置から移動方向を決める
-        enemybulletVec = (playerposition.transform.position - this.transform.position);
     }
 
     // Update is called once per frame
@@ -45,5 +40,13 @@ public class EnemyBullets : MonoBehaviour
     {
         get { return this.enemybulletspeed; }
         set { this.enemybulletspeed = value; }
+    }
+    /// <summary>
+    /// 自機外しの場合、弾の進行方向を別スクリプトから取得する
+    /// </summary>
+    public Vector2 getenemybulletVec
+    {
+        get { return this.enemybulletVec; }
+        set { this.enemybulletVec = value; }
     }
 }
