@@ -42,11 +42,14 @@ public class PlayerController : MonoBehaviour
     protected float minMoveY = -4.3f;
 
     [SerializeField] PlayerDeadPoint deadpoint; // やられ判定のスクリプト
-    float respawntime = 0.0f; // 復活までの時間を測る
-    float respawninterval = 1.0f; // 復活までに掛かる時間
+    float respawnTime = 0.0f; // 復活までの時間を測る
+    float respawnInterval = 1.0f; // 復活までに掛かる時間
     [SerializeField] SpriteRenderer playerSprite; // 自機のスプライト
 
     [SerializeField] private GameObject slowEffect; // 低速移動時に表示されるマーク
+
+    [SerializeField] private GameObject itmecollector; // アイテム自動回収判定
+    private float itmecollectline = 3.0f; // アイテム自動回収ライン
 
     public void Start()
     {
@@ -65,6 +68,10 @@ public class PlayerController : MonoBehaviour
         shotsField = GameObject.Find("ShotsField");
         // サブショットの発射口の座標用オブジェクトを取得する
         subShooterCenter = GameObject.Find("subWeapon");
+        // アイテム自動回収判定を取得
+        itmecollector = GameObject.Find("ItmeCollector");
+        // アイテム自動回収判定を無効化
+        itmecollector.SetActive(false);
 
         slowEffect.SetActive(false);
         // 自機の移動速度を設定する
@@ -75,7 +82,7 @@ public class PlayerController : MonoBehaviour
     public virtual void Update()
     {
         // 敵に倒されたとき
-        if (deadpoint.deadflag)
+        if (deadpoint.getdeadmotionflag)
         {
             // 残機を減らす
             itemDisplayer.GetComponent<ItemNumManager>().getlifeNum = playerlife;
@@ -84,12 +91,12 @@ public class PlayerController : MonoBehaviour
             // 自機の移動を止める
             playerRb.linearVelocity = Vector2.zero;
             // 少し時間を経過してから復活する
-            respawntime += Time.deltaTime;
-            if (respawntime >= respawninterval)
+            respawnTime += Time.deltaTime;
+            if (respawnTime >= respawnInterval)
             {
                 playerRb.transform.position = new Vector2(0.0f, -3.0f); // 初期位置に戻す
-                respawntime = 0.0f;
-                deadpoint.deadflag = false;
+                respawnTime = 0.0f;
+                deadpoint.getdeadmotionflag = false;
             }
         }
         // 通常時は操作可能にする
@@ -123,6 +130,16 @@ public class PlayerController : MonoBehaviour
                 {
                     meinshottime += Time.deltaTime;
                 }
+            }
+            // 自機が指定の数値より上の位置にいるならアイテムを自動回収する
+            if (playerposition.y >= itmecollectline)
+            {
+                itmecollector.SetActive(true);
+            }
+            // そうでないならアイテムを自動回収しない
+            else
+            {
+                itmecollector.SetActive(false);
             }
         }
     }

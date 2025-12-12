@@ -95,6 +95,5 @@ public class Stage1EnemySpawn : EnemySpawnManager
     void Mid_Boss_1()
     {
         Instantiate(mid_boss, new Vector2(5.0f, 5.0f), Quaternion.identity);
-        Debug.Log("起動");
     }
 }

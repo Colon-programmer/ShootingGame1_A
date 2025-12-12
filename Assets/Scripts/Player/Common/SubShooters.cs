@@ -10,17 +10,21 @@ public class SubShooters : MonoBehaviour
     protected GameObject ShotsField;
 
     protected GameObject controllerManager;
+
+    [SerializeField] private GameObject playerdead;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
         ShotsField = GameObject.Find("ShotsField");
         controllerManager = GameObject.Find("Controller");
+        playerdead = GameObject.Find("PlayerDeadPoint");
     }
 
     // Update is called once per frame
     public void Update()
     {
-        if (controllerManager.GetComponent<ControllerManager>().shottingAction.IsPressed())
+        if (controllerManager.GetComponent<ControllerManager>().shottingAction.IsPressed() && 
+            !playerdead.GetComponent<PlayerDeadPoint>().getdeadmotionflag)
         {
             subshottime += Time.deltaTime;
             if (subshottime >= subshotinterval)

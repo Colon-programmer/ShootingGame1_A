@@ -170,7 +170,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 560396093277092510, guid: 1950f9668f834dc4b9df904d248be543, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.8980392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.8745098}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   deadpoint: {fileID: 1364765311840521156}
   playerSprite: {fileID: 7209269919861643306}
   slowEffect: {fileID: 3073642273685136110}
+  itmecollector: {fileID: 0}
 --- !u!50 &7143313840465244177
 Rigidbody2D:
   serializedVersion: 5
@@ -274,7 +275,7 @@ GameObject:
   - component: {fileID: 2236839830148100870}
   - component: {fileID: 1364765311840521156}
   m_Layer: 0
-  m_Name: "\u81EA\u6A5F\u5F53\u305F\u308A\u5224\u5B9A 1_0"
+  m_Name: PlayerDeadPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -399,7 +400,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerobj: {fileID: 4599288389439090832}
-  deadflag: 0
 --- !u!1 &6093108209117002278
 GameObject:
   m_ObjectHideFlags: 0

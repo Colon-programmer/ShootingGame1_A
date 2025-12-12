@@ -166,3 +166,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bigbullet_01: {fileID: 4941235540184193165, guid: fab34b87dcf5ee242bc7b183c21df613, type: 3}
+  MBS: {fileID: 5738097041850063777}
