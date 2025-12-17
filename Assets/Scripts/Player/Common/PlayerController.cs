@@ -86,8 +86,6 @@ public class PlayerController : MonoBehaviour
         {
             // 残機を減らす
             itemDisplayer.GetComponent<ItemNumManager>().getlifeNum = playerlife;
-            // 自機を透明にする
-            playerSprite.color = new Color32(255, 255, 255, 0);
             // 自機の移動を止める
             playerRb.linearVelocity = Vector2.zero;
             // 少し時間を経過してから復活する
@@ -102,8 +100,6 @@ public class PlayerController : MonoBehaviour
         // 通常時は操作可能にする
         else
         {
-            // 自機を見えるようにする
-            playerSprite.color = new Color32(255, 255, 255, 255);
             ShotPowerCheck();
             PlayerMove();
             // ショット

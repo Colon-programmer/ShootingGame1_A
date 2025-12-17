@@ -400,6 +400,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerobj: {fileID: 4599288389439090832}
+  playerSprite: {fileID: 7209269919861643306}
 --- !u!1 &6093108209117002278
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,8 +15,8 @@ public class PlayerDeadPoint : MonoBehaviour
     private float invincebleInterval = 3.0f; // 無敵時間を測る変数
 
     private float invincibleColorTime = 0.0f;
-    private float invincibleColorInterval = 0.2f;
-    private bool normalcolor = true;
+    private float invincibleColorInterval = 0.05f;
+    private bool normalcolorflag = true;
 
     [SerializeField] private SpriteRenderer playerSprite;
 
@@ -27,23 +27,48 @@ public class PlayerDeadPoint : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         // 自機がやられたとき
         if (deadflag)
         {
             invincibleTime += Time.deltaTime; // 無敵時間を測る
             invincibleColorTime += Time.deltaTime;
+            // 無敵中に自機の色を点滅させる
+            if (invincibleColorTime >= invincibleColorInterval)
+            {
+                // フラグを反転させることで自機の色を変更させる
+                normalcolorflag = normalcolorflag ? false : true;
+                invincibleColorTime = 0.0f;
+            }
             // 時間が経ったら無敵を解除する
             if (invincibleTime >= invincebleInterval)
             {
                 deadflag = false;
                 invincibleTime = 0.0f;
+                normalcolorflag = true; // 自機の色を戻す
             }
-            if (invincibleColorTime >= invincibleColorInterval)
-            {
-                normalcolor = normalcolor ? false : true;
-            }
+            InvicibleEffect();
+        }
+    }
+    /// <summary>
+    /// 自機の無敵演出の関数
+    /// </summary>
+    private void InvicibleEffect()
+    {
+        // 死亡から復活するまでは自機を見えなくする
+        if (deadmotionflag)
+        {
+            playerSprite.color = new Color32(255, 255, 255, 0);
+        }
+        // 普通の色と無敵の色を繰り返し変更して無敵を演出する
+        else if (normalcolorflag && !deadmotionflag)
+        {
+            playerSprite.color = new Color32(255, 255, 255, 255);
+        }
+        else
+        {
+            playerSprite.color = new Color32(0, 255, 255, 255);
         }
     }
 
