@@ -8,6 +8,7 @@ TagManager:
   - EnemyShots
   - Enemy
   - ItemArea
+  - ShotEraser
   layers:
   - Default
   - TransparentFX

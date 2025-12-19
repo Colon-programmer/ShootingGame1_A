@@ -4,37 +4,24 @@ using DG.Tweening;
 using System.Threading;
 // ステージ1の中ボスのスクリプト
 
-public class Mid_Boss_Stage_1 : MonoBehaviour
+public class Mid_Boss_Stage_1 : Mid_BossManager
 {
-    private Rigidbody2D mid_boss_rb_01;
-
-    private Sequence spwanMove; // スポーンしてすぐの移動シーケンス
-
+    // 弾の動きのTween
     private Tween mid_boss_moveX_01;
     private Tween mid_boss_moveY_01;
 
-    private GameObject playerobj; // 自機
+    [SerializeField] protected GameObject bigbullet_01; // 大きい赤弾
 
-    [SerializeField] private GameObject bigbullet_01; // 大きい赤弾
+    private float[,] bigbullet_01_pos_x; // 大きい赤弾の出現位置のテンプレート
 
-    private float[,] bigbullet_01_pos_x;
+    private float[,] bigbullet_01_vec; // 大きい赤弾のベクトルのテンプレート
 
-    private int mid_boss_hp = 3000; // 中ボスの体力
-
-    private sbyte shottingpatten = 0; // 弾の出現パターンを指定する変数
-
-    float reAttackTime = 0.0f; // 次の攻撃までに時間を測る
-    float reAttackInterval; // 次の攻撃までに掛かる時間
-
-    private CancellationToken canceler;
-
-    private CancellationTokenSource token;
-
-    private bool cancelflag = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         // CancellationTokenSourceの生成  
         token = new CancellationTokenSource();
 
@@ -44,7 +31,7 @@ public class Mid_Boss_Stage_1 : MonoBehaviour
         // 弾の出現位置の初期化
         BulletpositionPreseter();
 
-        mid_boss_rb_01 = GetComponent<Rigidbody2D>();
+        mid_boss_rb = GetComponent<Rigidbody2D>();
 
         // 自機を探す
         playerobj = GameObject.FindWithTag("Player");
@@ -57,34 +44,65 @@ public class Mid_Boss_Stage_1 : MonoBehaviour
         spwanMove.Join(mid_boss_moveY_01);
 
         reAttackInterval = 1.5f;
+
+        mid_boss_maxhp = mid_boss_hp;
     }
 
     private void Update()
     {
         if (mid_boss_hp <= 0)
         {
-            cancelflag = true;
-            token.Cancel();
-            Destroy(this.gameObject);
+            switch (mid_boss_patten)
+            {
+                case 2:
+                    token.Cancel(); // 攻撃をキャンセル
+                    mid_boss_patten -= 1; // 攻撃パターンを変える
+                    reAttackTime = 0.0f; // 攻撃のインターバルをリセットする
+                    reAttackInterval = 1.0f; // 攻撃間隔を変える
+                    mid_boss_hp = 5000; // 新しい体力を設定する
+                    mid_boss_maxhp = mid_boss_hp; // 新しく設定した体力を最大体力として設定する
+                    break;
+                case 1:
+                    cancelflag = true;
+                    Destroy(this.gameObject);
+                    break;
+                default:
+                    break;
+            }
         }
-
     }
 
     async void FixedUpdate()
     {
         if (!cancelflag)
         {
-            reAttackTime += Time.deltaTime;
-
-            if (reAttackTime >= reAttackInterval)
+            switch (mid_boss_patten)
             {
-                reAttackTime = 0.0f;
-                await BaseAttack();
+                case 2:
+                    reAttackTime += Time.deltaTime;
+
+                    if (reAttackTime >= reAttackInterval)
+                    {
+                        reAttackTime = 0.0f;
+                        await BaseAttack(canceler);
+                    }
+                    break;
+                case 1:
+                    reAttackTime += Time.deltaTime;
+
+                    if (reAttackTime >= reAttackInterval)
+                    {
+                        reAttackTime = 0.0f;
+                        BaseAttack_02();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     }
 
-    async UniTask BaseAttack()
+    async UniTask BaseAttack(CancellationToken cancal)
     {
         // 上から下へ降る自機外し大弾
         float x_pos = playerobj.transform.position.x; // 左右の出現位置は自機に依存するようにする
@@ -92,16 +110,22 @@ public class Mid_Boss_Stage_1 : MonoBehaviour
         GameObject nolmar;
         for (int i = 0; i < 4; i++)
         {
-            if (cancelflag) break;
+            // キャンセルトークンの状態を見る
+            if (cancal.IsCancellationRequested)
+            {
+                return;
+            }
+            else
+            {
+                nolmar = Instantiate(bigbullet_01,
+    new Vector2(x_pos + bigbullet_01_pos_x[shottingpatten, i], y_pos), Quaternion.identity);
 
-            nolmar = Instantiate(bigbullet_01,
-                new Vector2(x_pos + bigbullet_01_pos_x[shottingpatten,i], y_pos), Quaternion.identity);
+                nolmar.GetComponent<EnemyBullets>().getenemybulletVec = Vector2.down; // ベクトルを下方向
 
-            nolmar.GetComponent<EnemyBullets>().getenemybulletVec = Vector2.down; // ベクトルを下方向
+                nolmar.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
 
-            nolmar.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
-
-            await UniTask.Delay(300);
+                await UniTask.Delay(300);
+            }
         }
 
         shottingpatten += 1; // 弾の出現パターンを変更する
@@ -109,6 +133,23 @@ public class Mid_Boss_Stage_1 : MonoBehaviour
         if (shottingpatten >= 3)
         {
             shottingpatten = 0;
+        }
+
+    }
+
+    void BaseAttack_02()
+    {
+        GameObject nolmar;
+        for (int i = 0; i < 5; i++)
+        {
+            if (cancelflag) break;
+
+            nolmar = Instantiate(bigbullet_01,
+                new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+
+            nolmar.GetComponent<EnemyBullets>().getenemybulletVec = new Vector2(bigbullet_01_vec[i,0], bigbullet_01_vec[i,1]); // ベクトルを下方向
+
+            nolmar.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
         }
 
     }
@@ -121,6 +162,14 @@ public class Mid_Boss_Stage_1 : MonoBehaviour
             { 1.0f, 0.0f, 2.0f, -1.0f },
             { -1.0f, 1.0f, -2.0f, 2.0f },
             { 0.0f, -2.0f, 1.0f, -1.0f },
+        };
+
+        bigbullet_01_vec = new float[5, 2]{
+            {-0.4f, -0.6f },
+            {-0.2f, -0.8f },
+            {0.0f, -1.0f },
+            {0.2f, -0.8f },
+            {0.4f, -0.6f },
         };
     }
 

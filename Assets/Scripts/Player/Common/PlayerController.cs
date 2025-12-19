@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject slowEffect; // 低速移動時に表示されるマーク
 
     [SerializeField] private GameObject itmecollector; // アイテム自動回収判定
-    private float itmecollectline = 3.0f; // アイテム自動回収ライン
+    private float itmecollectline = 2.5f; // アイテム自動回収ライン
 
     public void Start()
     {
