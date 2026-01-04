@@ -6,6 +6,7 @@ public class ControllerManager : MonoBehaviour
     public InputAction shottingAction; // ショットボタンの入力判定
     public InputAction moveingAction; // 移動の入力判定
     public InputAction slowAction; // 低速移動切り替えボタン
+    public InputAction bombAction; // ボム発動ボタン
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,6 +14,7 @@ public class ControllerManager : MonoBehaviour
         shottingAction = InputSystem.actions.FindAction("Attack");
         moveingAction = InputSystem.actions.FindAction("Move");
         slowAction = InputSystem.actions.FindAction("Slow");
+        bombAction = InputSystem.actions.FindAction("Bomb");
     }
 
     // Update is called once per frame

@@ -2588,6 +2588,15 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  bombAction:
+    m_Name: Bomb
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d3258db6-7b3f-4927-8d1d-05942f14fe38
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!4 &1201971642
 Transform:
   m_ObjectHideFlags: 0

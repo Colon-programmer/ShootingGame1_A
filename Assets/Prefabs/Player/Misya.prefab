@@ -195,10 +195,10 @@ MonoBehaviour:
   meinshottingPrefab: {fileID: 5428428879694104023, guid: 04e65e7016de2a04f83275e6d414df62, type: 3}
   shotPower: 0
   subshooter: {fileID: 3098696798675736480, guid: 49db10fceac26cc4cb8954ec2fbbab5c, type: 3}
+  bombeffect: {fileID: 7185035726498310049, guid: d55b9f55696b526468f5375c78dc2c9d, type: 3}
   deadpoint: {fileID: 1364765311840521156}
   playerSprite: {fileID: 7209269919861643306}
   slowEffect: {fileID: 3073642273685136110}
-  itmecollector: {fileID: 0}
 --- !u!50 &7143313840465244177
 Rigidbody2D:
   serializedVersion: 5

@@ -49,4 +49,21 @@ public class EnemyBullets : MonoBehaviour
         get { return this.enemybulletVec; }
         set { this.enemybulletVec = value; }
     }
+
+    // ボム攻撃に触れたら消えるようにする
+    public void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.CompareTag("Bomb"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Bomb"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }

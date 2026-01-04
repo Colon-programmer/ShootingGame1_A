@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - ItemArea
   - ShotEraser
+  - Bomb
   layers:
   - Default
   - TransparentFX

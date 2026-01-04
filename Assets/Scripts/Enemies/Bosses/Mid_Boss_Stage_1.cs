@@ -172,14 +172,6 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
             {0.4f, -0.6f },
         };
     }
-
-    protected virtual void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("PlayerShots"))
-        {
-            mid_boss_hp -= other.GetComponent<PlayerAttackAmounts>().damageAmount;
-        }
-    }
     private void OnDisable()
     {
         // Tween破棄

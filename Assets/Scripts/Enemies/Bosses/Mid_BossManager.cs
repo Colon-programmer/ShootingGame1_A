@@ -46,6 +46,22 @@ public class Mid_BossManager : MonoBehaviour
         
     }
 
+    protected void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("PlayerShots"))
+        {
+            mid_boss_hp -= other.GetComponent<PlayerAttackAmounts>().damageAmount;
+        }
+    }
+
+    protected void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Bomb"))
+        {
+            mid_boss_hp -= col.GetComponent<PlayerAttackAmounts>().damageAmount;
+        }
+    }
+
     public int getmid_boss_hp
     {
         get { return this.mid_boss_hp; }

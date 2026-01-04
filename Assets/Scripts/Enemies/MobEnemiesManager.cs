@@ -40,6 +40,14 @@ public class MobEnemiesManager : MonoBehaviour
         }
     }
 
+    protected virtual void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Bomb"))
+        {
+            enemyHp -= col.GetComponent<PlayerAttackAmounts>().damageAmount;
+        }
+    }
+
     void EnemyDestrol()
     {
         Destroy(this.gameObject);

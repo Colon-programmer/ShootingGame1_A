@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private sbyte playerlife; // 残機数
     private sbyte playerbomb; // 所持ボム数
+    [SerializeField] protected GameObject bombeffect; // ボム攻撃の見た目
 
     private GameObject itemDisplayer; // アイテムの所持数を表示するオブジェクト
 
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private GameObject slowEffect; // 低速移動時に表示されるマーク
 
-    [SerializeField] private GameObject itmecollector; // アイテム自動回収判定
+    private GameObject itmecollector; // アイテム自動回収判定
     private float itmecollectline = 2.5f; // アイテム自動回収ライン
 
     public void Start()
@@ -136,6 +137,13 @@ public class PlayerController : MonoBehaviour
             else
             {
                 itmecollector.SetActive(false);
+            }
+            // ボムを持っている時にボムボタンを押したらボムを発動する
+            if (controllerManager.bombAction.triggered && playerbomb > 0)
+            {
+                Instantiate(bombeffect, playerposition, Quaternion.identity);
+                playerbomb -= 1;
+                itemDisplayer.GetComponent<ItemNumManager>().getbombNum = playerbomb;
             }
         }
     }
