@@ -15,6 +15,7 @@ public class PlayerManager : GameManager<PlayerManager>
     public sbyte lifedefault = 2; // 初期残機数
     public sbyte bombdefault = 2; // 初期ボム数
     public int powerdefault = 100; // 現在のパワーの数値(ステージ間で引き継ぐ)
+    public int scorenum = 0; // 獲得したスコアを格納する変数
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,5 +27,12 @@ public class PlayerManager : GameManager<PlayerManager>
     void Update()
     {
         
+    }
+    /// <summary>
+    /// スコアを0にする関数
+    /// </summary>
+    void ScoreReset()
+    {
+        scorenum = 0;
     }
 }

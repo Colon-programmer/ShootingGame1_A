@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 // 自機のやられ判定のスクリプト
+// やられ判定にアイテムが触れるとそのアイテムを取得できる
 
 public class PlayerDeadPoint : MonoBehaviour
 {
@@ -20,10 +21,13 @@ public class PlayerDeadPoint : MonoBehaviour
 
     [SerializeField] private SpriteRenderer playerSprite;
 
+    private GameObject playermanager; // シングルトンを持ったオブジェクト
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        // シングルトンを取得
+        playermanager = GameObject.Find("PlayerManager");
     }
 
     // Update is called once per frame
@@ -77,9 +81,9 @@ public class PlayerDeadPoint : MonoBehaviour
         // パワーアイテムかどうかを調べる
         if (col.gameObject.TryGetComponent(out PowerItemEffect pItem))
         {
-            // パワーを取得する
+            // 現在のパワーを取得する
             int numpower = playerobj.GetComponent<PlayerController>().getshotPower;
-            // パワーを増やす
+            // パワーを加算する
             numpower = numpower + pItem.powerAmount;
             // パワーが上限値を超えないようにする
             if (numpower > playerobj.GetComponent<PlayerController>().getshotMaxPower)
@@ -91,7 +95,19 @@ public class PlayerDeadPoint : MonoBehaviour
                 getitemDisplayer.GetComponent<ItemNumManager>().getpowerNum = numpower;
             // 獲得したアイテムを消滅させる
             Destroy(col.gameObject);
+            // プレイヤーの操作スクリプトにパワーの値の変更を反映させる
             playerobj.GetComponent<PlayerController>().getshotPower = numpower;
+        }
+        if (col.gameObject.TryGetComponent(out ScoreItemEffect sItem))
+        {
+            // 現在のスコアを取得する
+            int numscore = playermanager.GetComponent<PlayerManager>().scorenum;
+            // スコアを加算する
+            numscore = numscore + sItem.scoreAmount;
+            // 獲得したアイテムを消滅させる
+            Destroy(col.gameObject);
+            // シングルトンにスコアの変更を反映させる
+            playermanager.GetComponent<PlayerManager>().scorenum = numscore;
         }
     }
 
