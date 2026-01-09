@@ -3,6 +3,14 @@
 
 public class EnemyBullets : MonoBehaviour
 {
+    public enum BulletType
+    {
+        /// <summary>
+        /// 一定速度で直進する弾
+        /// </summary>
+        STRAIGHT = 0,
+    }
+
     private Rigidbody2D enemybulletRb; // 敵の弾のRigidbody
     private float enemybulletspeed; // 敵の弾の弾速
     private float bulletarea = 6.5f; // 弾が存在できる範囲
@@ -10,6 +18,8 @@ public class EnemyBullets : MonoBehaviour
     protected GameObject playerposition; // 自機の位置
 
     protected Vector2 enemybulletVec; // 敵の弾の移動方向
+
+    private BulletType enemyBulletType; // 敵弾の移動の仕方を指定する変数
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
@@ -20,12 +30,13 @@ public class EnemyBullets : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // 向いている方向に移動する
-        enemybulletRb.AddForce(enemybulletVec * enemybulletspeed, ForceMode2D.Impulse);
-        if (enemybulletRb.linearVelocity.magnitude > enemybulletspeed)
+        switch (enemyBulletType)
         {
-            enemybulletRb.linearVelocity = enemybulletRb.linearVelocity.normalized * enemybulletspeed;
+            case BulletType.STRAIGHT:
+                StraightType();
+                break;
         }
+
         // 画面外に出たら消える
         if (enemybulletRb.transform.position.x >= bulletarea ||
             enemybulletRb.transform.position.x <= -bulletarea ||
@@ -33,6 +44,16 @@ public class EnemyBullets : MonoBehaviour
             enemybulletRb.transform.position.y <= -bulletarea)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    void StraightType()
+    {
+        // 向いている方向に移動する
+        enemybulletRb.AddForce(enemybulletVec * enemybulletspeed, ForceMode2D.Impulse);
+        if (enemybulletRb.linearVelocity.magnitude > enemybulletspeed)
+        {
+            enemybulletRb.linearVelocity = enemybulletRb.linearVelocity.normalized * enemybulletspeed;
         }
     }
 
@@ -65,5 +86,13 @@ public class EnemyBullets : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+    /// <summary>
+    /// 敵弾の移動の仕方を指定する変数のゲッター
+    /// </summary>
+    public BulletType getenemyBulletType
+    {
+        get { return this.enemyBulletType; }
+        set { this.enemyBulletType = value; }
     }
 }

@@ -11,6 +11,8 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
     private Tween mid_boss_moveY_01;
 
     [SerializeField] protected GameObject bigbullet_01; // 大きい赤弾
+    [SerializeField] private GameObject bigSearchbullet;
+    [SerializeField] protected GameObject fanshapeshooterobj; // 扇形弾幕の発射オブジェクト
 
     private float[,] bigbullet_01_pos_x; // 大きい赤弾の出現位置のテンプレート
 
@@ -120,8 +122,8 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
                 nolmar = Instantiate(bigbullet_01,
     new Vector2(x_pos + bigbullet_01_pos_x[shottingpatten, i], y_pos), Quaternion.identity);
 
+                nolmar.GetComponent<EnemyBullets>().getenemyBulletType = EnemyBullets.BulletType.STRAIGHT;
                 nolmar.GetComponent<EnemyBullets>().getenemybulletVec = Vector2.down; // ベクトルを下方向
-
                 nolmar.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
 
                 await UniTask.Delay(300);
@@ -147,9 +149,11 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
             nolmar = Instantiate(bigbullet_01,
                 new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
 
-            nolmar.GetComponent<EnemyBullets>().getenemybulletVec = new Vector2(bigbullet_01_vec[i,0], bigbullet_01_vec[i,1]); // ベクトルを下方向
-
+            nolmar.GetComponent<EnemyBullets>().getenemyBulletType = EnemyBullets.BulletType.STRAIGHT;
             nolmar.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
+            nolmar.GetComponent<EnemyBullets>().getenemybulletVec =
+                new Vector2(playerobj.transform.position.x + bigbullet_01_vec[i, 0],
+                            playerobj.transform.position.y + bigbullet_01_vec[i, 1]);
         }
 
     }

@@ -190,4 +190,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyHp: 0
-  dropitme: {fileID: 1528873247248409831, guid: a8d50d9d86aa3bd43b97b89ede20a214, type: 3}
+  dropitme: {fileID: 6423571566161404390, guid: 191637ceb291d144e8d21c6086dd738f, type: 3}

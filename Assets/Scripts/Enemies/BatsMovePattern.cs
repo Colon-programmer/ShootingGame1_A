@@ -12,6 +12,9 @@ public class BatsMovePattern : EnemyMoveManager
 
     public override void Start()
     {
+        // 自機を探す
+        playerobj = GameObject.FindWithTag("Player");
+
         enemyRb = GetComponent<Rigidbody2D>();
         batsVec = this.transform.position;
         switch (movepattern)
@@ -58,11 +61,19 @@ public class BatsMovePattern : EnemyMoveManager
     {
         GameObject bullets_01 = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
 
+        bullets_01.GetComponent<EnemyBullets>().getenemyBulletType = EnemyBullets.BulletType.STRAIGHT;
         bullets_01.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
+        // 自機の位置から移動方向を決める
+        bullets_01.GetComponent<EnemyBullets>().getenemybulletVec = playerobj.transform.position - this.transform.position;
+
 
         GameObject bullets_02 = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
 
+        bullets_02.GetComponent<EnemyBullets>().getenemyBulletType = EnemyBullets.BulletType.STRAIGHT;
         bullets_02.GetComponent<EnemyBullets>().getenemybulletspeed = 3.0f;
+        // 自機の位置から移動方向を決める
+        bullets_02.GetComponent<EnemyBullets>().getenemybulletVec = playerobj.transform.position - this.transform.position;
+
     }
 
     private void OnDisable()

@@ -167,7 +167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mid_boss_hp_gauge: {fileID: 5160647280330884541}
-  bigbullet_01: {fileID: 4941235540184193165, guid: fab34b87dcf5ee242bc7b183c21df613, type: 3}
+  bigbullet_01: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
+  bigSearchbullet: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
+  fanshapeshooterobj: {fileID: 7065857325343572611, guid: 24dcbbb08eaff5c4bbb8b3efbd6fe1ee, type: 3}
 --- !u!1001 &2863314216895914157
 PrefabInstance:
   m_ObjectHideFlags: 0
