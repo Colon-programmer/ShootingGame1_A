@@ -8,10 +8,16 @@ public class MobEnemiesManager : MonoBehaviour
     protected float appearanceArea = 5.5f; // 雑魚敵の出現範囲
 
     [SerializeField] private GameObject dropitme; // 倒した時に落とすアイテム
+
+    private GameObject scorecountobj;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         enemyHp = 1; // 生成時に値を受け取りますが念のため0以上の初期値を設定
+        // スコアカウンターを取得
+        scorecountobj = GameObject.Find("ScoreCounterObject");
+
     }
 
     // Update is called once per frame
@@ -36,7 +42,10 @@ public class MobEnemiesManager : MonoBehaviour
     {
         if (other.CompareTag("PlayerShots"))
         {
-            enemyHp -= other.GetComponent<PlayerAttackAmounts>().damageAmount;
+            int d_a = other.GetComponent<PlayerAttackAmounts>().damageAmount;
+
+            enemyHp -= d_a;
+            scorecountobj.GetComponent<ScoreGetter>().getscore += d_a;
         }
     }
 
@@ -51,5 +60,7 @@ public class MobEnemiesManager : MonoBehaviour
     void EnemyDestrol()
     {
         Destroy(this.gameObject);
+
+        scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
     }
 }

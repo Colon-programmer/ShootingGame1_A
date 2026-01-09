@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
 // タイトルでの操作の処理を管理するスクリプト
 
 public class TitleScript : MonoBehaviour
@@ -128,7 +127,7 @@ public class TitleScript : MonoBehaviour
                         playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.POPPY;
                         break;
                 }
-                SceneManager.LoadScene("Stage_01");
+                playerManager.GetComponent<PlayerManager>().GameSceneMove(1);
             }
             if (inputUI.backAction.triggered)
             {

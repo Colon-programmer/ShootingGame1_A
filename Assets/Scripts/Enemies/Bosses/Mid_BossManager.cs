@@ -31,6 +31,8 @@ public class Mid_BossManager : MonoBehaviour
     protected CancellationTokenSource token;
 
     protected bool cancelflag = false;
+
+    protected GameObject scorecountobj;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
@@ -38,6 +40,9 @@ public class Mid_BossManager : MonoBehaviour
 
         // 親子関係
         mid_boss_hp_gauge.transform.SetParent(gamecanvas.transform, false);
+
+        // スコアカウンターを取得
+        scorecountobj = GameObject.Find("ScoreCounterObject");
     }
 
     // Update is called once per frame
@@ -50,7 +55,10 @@ public class Mid_BossManager : MonoBehaviour
     {
         if (other.CompareTag("PlayerShots"))
         {
-            mid_boss_hp -= other.GetComponent<PlayerAttackAmounts>().damageAmount;
+            int d_a = other.GetComponent<PlayerAttackAmounts>().damageAmount;
+
+            mid_boss_hp -= d_a;
+            scorecountobj.GetComponent<ScoreGetter>().getscore += d_a;
         }
     }
 

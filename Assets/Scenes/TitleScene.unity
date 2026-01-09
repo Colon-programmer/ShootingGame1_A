@@ -1231,6 +1231,7 @@ MonoBehaviour:
   bombdefault: 2
   powerdefault: 100
   scorenum: 0
+  stagenumber: 0
 --- !u!4 &1708223552
 Transform:
   m_ObjectHideFlags: 0

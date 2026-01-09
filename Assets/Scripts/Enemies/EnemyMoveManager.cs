@@ -13,6 +13,7 @@ public class EnemyMoveManager : MonoBehaviour
     [SerializeField] protected GameObject enemybullet; // 敵の出す弾
 
     protected GameObject playerobj; // 自機のオブジェクト
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {

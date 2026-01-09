@@ -21,6 +21,8 @@ public class EnemyBullets : MonoBehaviour
 
     private BulletType enemyBulletType; // 敵弾の移動の仕方を指定する変数
 
+    [SerializeField] private GameObject scoreItme; // スコアアイテム
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
@@ -78,12 +80,26 @@ public class EnemyBullets : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        if (col.CompareTag("ShotEraser"))
+        {
+            Instantiate(scoreItme, this.gameObject.transform.position, Quaternion.identity);
+
+            Destroy(this.gameObject);
+        }
     }
 
     public void OnTriggerStay2D(Collider2D col)
     {
         if (col.CompareTag("Bomb"))
         {
+            Destroy(this.gameObject);
+        }
+
+        if (col.CompareTag("ShotEraser"))
+        {
+            Instantiate(scoreItme, this.gameObject.transform.position, Quaternion.identity);
+
             Destroy(this.gameObject);
         }
     }

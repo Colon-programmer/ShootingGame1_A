@@ -139,11 +139,12 @@ public class PlayerController : MonoBehaviour
                 itmecollector.SetActive(false);
             }
             // ボムを持っている時にボムボタンを押したらボムを発動する
-            if (controllerManager.bombAction.triggered && playerbomb > 0)
+            if (controllerManager.bombAction.triggered && playerbomb > 0 && deadpoint.getinvicibleflag == false)
             {
                 Instantiate(bombeffect, playerposition, Quaternion.identity);
                 playerbomb -= 1;
                 itemDisplayer.GetComponent<ItemNumManager>().getbombNum = playerbomb;
+                deadpoint.getinvicibleflag = true;
             }
         }
     }

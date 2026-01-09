@@ -7,7 +7,7 @@ public class PlayerDeadPoint : MonoBehaviour
 {
     [SerializeField] private GameObject playerobj;
 
-    private bool deadflag = false; // trueなら攻撃や敵に触れてもやられなくなるフラグ
+    private bool invicibleflag = false; // trueなら攻撃や敵に触れてもやられなくなるフラグ
     private bool deadmotionflag = false; // 死亡後一定時間は動かせないようにするフラグ
 
     private bool gameoverflag = false; // ゲームオーバーフラグ
@@ -21,20 +21,20 @@ public class PlayerDeadPoint : MonoBehaviour
 
     [SerializeField] private SpriteRenderer playerSprite;
 
-    private GameObject playermanager; // シングルトンを持ったオブジェクト
+    private GameObject scoreCountobj;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // シングルトンを取得
-        playermanager = GameObject.Find("PlayerManager");
+        // スコアカウンターを取得
+        scoreCountobj = GameObject.Find("ScoreCounterObject");
     }
 
     // Update is called once per frame
     void Update()
     {
         // 自機がやられたとき
-        if (deadflag)
+        if (invicibleflag)
         {
             invincibleTime += Time.deltaTime; // 無敵時間を測る
             invincibleColorTime += Time.deltaTime;
@@ -48,7 +48,7 @@ public class PlayerDeadPoint : MonoBehaviour
             // 時間が経ったら無敵を解除する
             if (invincibleTime >= invincebleInterval)
             {
-                deadflag = false;
+                invicibleflag = false;
                 invincibleTime = 0.0f;
                 normalcolorflag = true; // 自機の色を戻す
             }
@@ -101,13 +101,11 @@ public class PlayerDeadPoint : MonoBehaviour
         if (col.gameObject.TryGetComponent(out ScoreItemEffect sItem))
         {
             // 現在のスコアを取得する
-            int numscore = playermanager.GetComponent<PlayerManager>().scorenum;
-            // スコアを加算する
-            numscore = numscore + sItem.scoreAmount;
+            int numscore = col.GetComponent<ScoreItemEffect>().scoreAmount;
             // 獲得したアイテムを消滅させる
             Destroy(col.gameObject);
-            // シングルトンにスコアの変更を反映させる
-            playermanager.GetComponent<PlayerManager>().scorenum = numscore;
+            // スコアを加算する
+            scoreCountobj.GetComponent<ScoreGetter>().getscore += numscore;
         }
     }
 
@@ -115,7 +113,7 @@ public class PlayerDeadPoint : MonoBehaviour
     private void OnTriggerStay2D(Collider2D col)
     {
         // 無敵でない時
-        if (!deadflag)
+        if (!invicibleflag)
         {
             // 敵にぶつかった時または敵の攻撃に当たった時
             if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "EnemyShots")
@@ -123,14 +121,14 @@ public class PlayerDeadPoint : MonoBehaviour
                 // 残機が無いときにやられるとゲームオーバー
                 if (playerobj.GetComponent<PlayerController>().getlifeNum <= 0)
                 {
-                    deadflag = true;
+                    invicibleflag = true;
                     deadmotionflag = true;
-                    SceneManager.LoadScene("TitleScene");
+                    SceneManager.LoadScene("GameOver");
                 }
                 // まだ残機が残っている時は残機を減らす
                 else
                 {
-                    deadflag = true;
+                    invicibleflag = true;
                     deadmotionflag = true;
                     playerobj.GetComponent<PlayerController>().getlifeNum -= 1;
                 }
@@ -142,5 +140,11 @@ public class PlayerDeadPoint : MonoBehaviour
     {
         get { return this.deadmotionflag; }
         set { this.deadmotionflag = value; }
+    }
+
+    public bool getinvicibleflag
+    {
+        get { return this.invicibleflag; }
+        set { this.invicibleflag = value; }
     }
 }

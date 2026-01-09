@@ -47,7 +47,8 @@ public class ItmeEffects : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         // 自機周辺の判定に触れると自機に吸い込まれる状態になる
-        if (col.CompareTag("ItemArea"))
+        // 全画面弾消しでも自機に吸い込まれる状態になる
+        if (col.CompareTag("ItemArea") || col.CompareTag("ShotEraser"))
         {
             changemove = true;
             itemrigidbody.linearVelocity = Vector2.zero;
