@@ -10,6 +10,10 @@ public class BatsMovePattern : EnemyMoveManager
     private Tween moveX_01;
     private Tween moveY_01;
 
+    [SerializeField] private GameObject shooterobj;
+
+    [SerializeField] private GameObject red_bullet;
+
     public override void Start()
     {
         // 自機を探す
@@ -59,21 +63,10 @@ public class BatsMovePattern : EnemyMoveManager
 
     void BatsAttack_01()
     {
-        GameObject bullets_01 = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
+        GameObject shot_1 = Instantiate(shooterobj, this.transform.position, Quaternion.identity);
 
-        bullets_01.GetComponent<EnemyBullets>().getenemyBulletType = EnemyBullets.BulletType.STRAIGHT;
-        bullets_01.GetComponent<EnemyBullets>().getenemybulletspeed = 4.0f;
-        // 自機の位置から移動方向を決める
-        bullets_01.GetComponent<EnemyBullets>().getenemybulletVec = playerobj.transform.position - this.transform.position;
-
-
-        GameObject bullets_02 = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
-
-        bullets_02.GetComponent<EnemyBullets>().getenemyBulletType = EnemyBullets.BulletType.STRAIGHT;
-        bullets_02.GetComponent<EnemyBullets>().getenemybulletspeed = 3.0f;
-        // 自機の位置から移動方向を決める
-        bullets_02.GetComponent<EnemyBullets>().getenemybulletVec = playerobj.transform.position - this.transform.position;
-
+        shot_1.GetComponent<SearchShooter>().getshotpattren = 1;
+        shot_1.GetComponent<SearchShooter>().getenemybullet = red_bullet;
     }
 
     private void OnDisable()

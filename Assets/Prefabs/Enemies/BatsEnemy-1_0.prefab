@@ -176,7 +176,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bcd4a99f7cce254187533265ad6b5a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemybullet: {fileID: 3434465246186700272, guid: babfcb2cd743cc74e802d0015c08f22e, type: 3}
+  shooterobj: {fileID: 6170581261313814137, guid: f4eda47c3b6b9cb499fdd8a0c898b654, type: 3}
+  red_bullet: {fileID: 3434465246186700272, guid: babfcb2cd743cc74e802d0015c08f22e, type: 3}
 --- !u!114 &8490215545086926192
 MonoBehaviour:
   m_ObjectHideFlags: 0

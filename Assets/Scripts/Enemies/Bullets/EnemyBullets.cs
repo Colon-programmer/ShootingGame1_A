@@ -13,6 +13,8 @@ public class EnemyBullets : MonoBehaviour
 
     private Rigidbody2D enemybulletRb; // 敵の弾のRigidbody
     private float enemybulletspeed; // 敵の弾の弾速
+    private float enemybulletangle = -90.0f; // 敵の弾の角度
+    private Vector3 enemybulletvelocity; // 敵の弾の移動量
     private float bulletarea = 6.5f; // 弾が存在できる範囲
 
     protected GameObject playerposition; // 自機の位置
@@ -30,7 +32,7 @@ public class EnemyBullets : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         switch (enemyBulletType)
         {
@@ -52,11 +54,30 @@ public class EnemyBullets : MonoBehaviour
     void StraightType()
     {
         // 向いている方向に移動する
-        enemybulletRb.AddForce(enemybulletVec * enemybulletspeed, ForceMode2D.Impulse);
-        if (enemybulletRb.linearVelocity.magnitude > enemybulletspeed)
-        {
-            enemybulletRb.linearVelocity = enemybulletRb.linearVelocity.normalized * enemybulletspeed;
-        }
+        //enemybulletRb.AddForce(enemybulletVec * enemybulletspeed, ForceMode2D.Impulse);
+        //if (enemybulletRb.linearVelocity.magnitude > enemybulletspeed)
+        //{
+        //    enemybulletRb.linearVelocity = enemybulletRb.linearVelocity.normalized * enemybulletspeed;
+        //}
+
+        // X方向の移動量を設定する
+        enemybulletvelocity.x = enemybulletspeed * Mathf.Cos(enemybulletangle * Mathf.Deg2Rad);
+
+        // Y方向の移動量を設定する
+        enemybulletvelocity.y = enemybulletspeed * Mathf.Sin(enemybulletangle * Mathf.Deg2Rad);
+
+        // 弾の向きを設定する
+        float zAngle = Mathf.Atan2(enemybulletvelocity.y, enemybulletvelocity.x) * Mathf.Rad2Deg - 90.0f;
+        transform.rotation = Quaternion.Euler(0, 0, zAngle);
+
+        // 毎フレーム、弾を移動させる
+        transform.position += enemybulletvelocity * Time.deltaTime;
+    }
+
+    public float getenemybulletangle
+    {
+        get { return this.enemybulletangle; }
+        set { this.enemybulletangle = value; }
     }
 
     public float getenemybulletspeed
@@ -71,7 +92,19 @@ public class EnemyBullets : MonoBehaviour
     {
         get { return this.enemybulletVec; }
         set { this.enemybulletVec = value; }
+
+
     }
+
+    /// <summary>
+    /// 敵弾の移動の仕方を指定する変数のゲッター
+    /// </summary>
+    public BulletType getenemyBulletType
+    {
+        get { return this.enemyBulletType; }
+        set { this.enemyBulletType = value; }
+    }
+
 
     // ボム攻撃に触れたら消えるようにする
     public void OnTriggerEnter2D(Collider2D col)
@@ -102,13 +135,5 @@ public class EnemyBullets : MonoBehaviour
 
             Destroy(this.gameObject);
         }
-    }
-    /// <summary>
-    /// 敵弾の移動の仕方を指定する変数のゲッター
-    /// </summary>
-    public BulletType getenemyBulletType
-    {
-        get { return this.enemyBulletType; }
-        set { this.enemyBulletType = value; }
     }
 }

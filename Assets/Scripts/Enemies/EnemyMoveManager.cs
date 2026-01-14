@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 // ステージ上の敵の動きを制御するスクリプト
 
 public class EnemyMoveManager : MonoBehaviour
@@ -9,8 +8,6 @@ public class EnemyMoveManager : MonoBehaviour
     protected float enemyspeed;
 
     protected int movepattern; // 敵の移動パターンを指定する変数
-
-    [SerializeField] protected GameObject enemybullet; // 敵の出す弾
 
     protected GameObject playerobj; // 自機のオブジェクト
 
@@ -34,14 +31,6 @@ public class EnemyMoveManager : MonoBehaviour
         {
             enemyRb.linearVelocity = enemyRb.linearVelocity.normalized * enemyspeed;
         }
-    }
-    IEnumerator TestAttack()
-    {
-        yield return new WaitForSeconds(0.5f);
-
-        GameObject bullets = Instantiate(enemybullet, this.transform.position, Quaternion.identity);
-
-        bullets.GetComponent<EnemyBullets>().getenemybulletspeed = 6.0f;
     }
     /// <summary>
     /// 敵の移動パターンを指定する変数のゲッター

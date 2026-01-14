@@ -3,7 +3,7 @@
 
 public class FanShapeShooter : MonoBehaviour
 {
-    private GameObject enemybullet; // 敵弾のオブジェクト
+    [SerializeField] private GameObject enemybullet; // 敵弾のオブジェクト
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

@@ -169,7 +169,7 @@ MonoBehaviour:
   mid_boss_hp_gauge: {fileID: 5160647280330884541}
   bigbullet_01: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
   bigSearchbullet: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
-  fanshapeshooterobj: {fileID: 7065857325343572611, guid: 24dcbbb08eaff5c4bbb8b3efbd6fe1ee, type: 3}
+  shooterobj: {fileID: 6170581261313814137, guid: f4eda47c3b6b9cb499fdd8a0c898b654, type: 3}
   shoteraserobj: {fileID: 4970199387192358103, guid: 44ed7b317fd7a9c4aa38337e2a2f6980, type: 3}
 --- !u!1001 &2863314216895914157
 PrefabInstance:
