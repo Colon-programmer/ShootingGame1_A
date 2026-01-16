@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
     private GameObject itemDisplayer; // アイテムの所持数を表示するオブジェクト
 
     // それぞれの方向の移動制限
-    protected float maxMoveX = 3.7f;
-    protected float minMoveX = -4.8f;
+    protected float maxMoveX = 4.2f;
+    protected float minMoveX = -4.3f;
     protected float maxMoveY = 4.2f;
     protected float minMoveY = -4.3f;
 

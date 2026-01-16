@@ -43,7 +43,7 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
         playerobj = GameObject.FindWithTag("Player");
 
         spwanMove = DOTween.Sequence();
-        mid_boss_moveX_01 = transform.DOMoveX(this.transform.position.x - 5.5f, 0.5f);
+        mid_boss_moveX_01 = transform.DOMoveX(this.transform.position.x - 5f, 0.5f);
         mid_boss_moveY_01 = transform.DOMoveY(this.transform.position.y - 2f, 0.5f);
 
         spwanMove.Join(mid_boss_moveX_01);
@@ -153,9 +153,7 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
 
         nolmar = Instantiate(shooterobj, this.transform.position, Quaternion.identity);
 
-        nolmar.GetComponent<SearchShooter>().getshotpattren = 2;
-        nolmar.GetComponent<SearchShooter>().getenemybullet = bigbullet_01;
-        nolmar.GetComponent<SearchShooter>().getfanshapecount = 2;
+        nolmar.GetComponent<SearchShooter>().FanShapeSearchShot(bigbullet_01, 4.0f, 2, 20.0f, 1, 1);
     }
     /// <summary>
     /// 弾の出現位置のテンプレを設定する

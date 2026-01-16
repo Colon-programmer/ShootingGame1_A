@@ -65,8 +65,7 @@ public class BatsMovePattern : EnemyMoveManager
     {
         GameObject shot_1 = Instantiate(shooterobj, this.transform.position, Quaternion.identity);
 
-        shot_1.GetComponent<SearchShooter>().getshotpattren = 1;
-        shot_1.GetComponent<SearchShooter>().getenemybullet = red_bullet;
+        shot_1.GetComponent<SearchShooter>().NormalSearchShot(red_bullet, 4.0f, 5, 10);
     }
 
     private void OnDisable()
