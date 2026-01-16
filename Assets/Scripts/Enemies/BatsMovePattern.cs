@@ -10,6 +10,8 @@ public class BatsMovePattern : EnemyMoveManager
     private Tween moveX_01;
     private Tween moveY_01;
 
+    private Tween moveY_02;
+
     [SerializeField] private GameObject shooterobj;
 
     [SerializeField] private GameObject red_bullet;
@@ -32,11 +34,6 @@ public class BatsMovePattern : EnemyMoveManager
         }
     }
 
-    public override void FixedUpdate()
-    {
-        
-    }
-
     void BatsMoving_01()
     {
         batsPattern = DOTween.Sequence();
@@ -47,6 +44,11 @@ public class BatsMovePattern : EnemyMoveManager
         batsPattern.Join(moveY_01);
 
         batsPattern.OnComplete(BatsAttack_01);
+
+        batsVec = this.transform.position;
+        moveY_02 = transform.DOMoveY(batsVec.y + 1f, 1.0f).SetDelay(3);
+
+        moveY_02.OnComplete(MobDelete);
     }
 
     void BatsMoving_02()
@@ -59,6 +61,11 @@ public class BatsMovePattern : EnemyMoveManager
         batsPattern.Join(moveY_01);
 
         batsPattern.OnComplete(BatsAttack_01);
+
+        batsVec = this.transform.position;
+        moveY_02 = transform.DOMoveY(batsVec.y + 1f, 1.0f).SetDelay(3);
+
+        moveY_02.OnComplete(MobDelete);
     }
 
     void BatsAttack_01()
@@ -73,9 +80,11 @@ public class BatsMovePattern : EnemyMoveManager
         // Tween破棄
         if (DOTween.instance != null)
         {
+            //?.Kill();(テンプレ)
             moveX_01?.Kill();
             moveY_01?.Kill();
             batsPattern?.Kill();
+            moveY_02?.Kill();
         }
     }
 }

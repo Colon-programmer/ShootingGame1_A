@@ -33,6 +33,11 @@ public class Mid_BossManager : MonoBehaviour
     protected bool cancelflag = false;
 
     protected GameObject scorecountobj;
+
+    [SerializeField] protected GameObject shotEraserobj; // 全画面弾消しオブジェクト
+
+    protected GameObject enemySpawnobj; // 敵を出現させるオブジェクト
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public virtual void Start()
     {
@@ -43,6 +48,8 @@ public class Mid_BossManager : MonoBehaviour
 
         // スコアカウンターを取得
         scorecountobj = GameObject.Find("ScoreCounterObject");
+
+        enemySpawnobj = GameObject.Find("EnemySpawn");
     }
 
     // Update is called once per frame

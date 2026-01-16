@@ -17,20 +17,12 @@ public class EnemyMoveManager : MonoBehaviour
         enemyRb = GetComponent<Rigidbody2D>();
         StartCoroutine("TestAttack");
     }
-
-    // Update is called once per frame
-    public virtual void FixedUpdate()
+    /// <summary>
+    /// 雑魚敵を消す関数
+    /// </summary>
+    protected void MobDelete()
     {
-        TestMove();
-    }
-
-    void TestMove()
-    {
-        enemyRb.AddForce(transform.up * enemyspeed, ForceMode2D.Impulse);
-        if (enemyRb.linearVelocity.magnitude > enemyspeed)
-        {
-            enemyRb.linearVelocity = enemyRb.linearVelocity.normalized * enemyspeed;
-        }
+        Destroy(this.gameObject);
     }
     /// <summary>
     /// 敵の移動パターンを指定する変数のゲッター

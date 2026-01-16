@@ -2,7 +2,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using System.Threading;
-using UnityEngine.SceneManagement;
 // ステージ1の中ボスのスクリプト
 
 public class Mid_Boss_Stage_1 : Mid_BossManager
@@ -20,8 +19,6 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
     private float[,] bigbullet_01_vec; // 大きい赤弾のベクトルのテンプレート
 
     //[SerializeField] private GameObject scoreItme; // スコアアイテム
-
-    [SerializeField] private GameObject shoteraserobj; // 全画面弾消しオブジェクト
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
@@ -68,12 +65,12 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
                     mid_boss_hp = 5000; // 新しい体力を設定する
                     mid_boss_maxhp = mid_boss_hp; // 新しく設定した体力を最大体力として設定する
                     scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
-                    Instantiate(shoteraserobj, new Vector2(0, 0), Quaternion.identity);
+                    Instantiate(shotEraserobj, new Vector2(0, 0), Quaternion.identity);
                     break;
                 case 1:
                     cancelflag = true;
                     scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
-                    SceneManager.LoadScene("StageClear");
+                    enemySpawnobj.GetComponent<EnemySpawnManager>().gettimercountstoper = false; // ステージのタイマーを再始動させる
                     Destroy(this.gameObject);
                     break;
                 default:
