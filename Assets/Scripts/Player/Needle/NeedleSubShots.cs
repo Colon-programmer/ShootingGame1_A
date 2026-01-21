@@ -20,7 +20,6 @@ public class NeedleSubShots : SubShooters
             // 低速時
             if (controllerManager.GetComponent<ControllerManager>().slowAction.IsPressed())
             {
-                subshotinterval = 0.1f;
                 Instantiate(subBullet,
                     this.transform.position, Quaternion.identity, ShotsField.transform);
                 subshottime = 0.0f;
@@ -28,7 +27,6 @@ public class NeedleSubShots : SubShooters
             // 高速時
             else
             {
-                subshotinterval = 0.1f;
                 Instantiate(subBullet,
                     this.transform.position, Quaternion.identity, ShotsField.transform);
                 subshottime = 0.0f;

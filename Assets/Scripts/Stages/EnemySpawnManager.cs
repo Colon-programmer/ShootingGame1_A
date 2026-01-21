@@ -10,6 +10,11 @@ public class EnemySpawnManager : MonoBehaviour
 
     [SerializeField] protected GameObject bats;
 
+    // 個数や出現位置を指定する変数
+    protected int spawnNum;
+    protected float spawn_Set_X;
+    protected float spawn_Set_Y;
+
     [SerializeField] protected GameObject mid_boss; // 中ボス(途中に出るボス)
     //[SerializeField] protected GameObject big_boss; // ボス(ステージ最後に出るボス)
 

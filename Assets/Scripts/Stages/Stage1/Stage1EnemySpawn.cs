@@ -8,7 +8,7 @@ public class Stage1EnemySpawn : EnemySpawnManager
     void Start()
     {
         stageTimer = 0.0f;
-        spawnflag = new bool[4];
+        spawnflag = new bool[7];
         for (int flag = 0; flag < spawnflag.Length; flag++)
         {
             spawnflag[flag] = true;
@@ -55,6 +55,22 @@ public class Stage1EnemySpawn : EnemySpawnManager
             Mid_Boss_1();
             bossflag[0] = false;
             timercountstoper = true;
+        }
+
+        if (stageTimer >= 27.0f && spawnflag[4])
+        {
+            spawnNum = 4;
+            spawn_Set_X = 3.0f;
+            StartCoroutine("EnemySpawn_2_1");
+            spawnflag[4] = false;
+        }
+
+        if (stageTimer >= 32.0f && spawnflag[5])
+        {
+            spawnNum = 4;
+            spawn_Set_X = -3.0f;
+            StartCoroutine("EnemySpawn_2_2");
+            spawnflag[5] = false;
         }
     }
 
@@ -133,6 +149,51 @@ public class Stage1EnemySpawn : EnemySpawnManager
             yield return new WaitForSeconds(0.2f);
         }
     }
+
+    IEnumerator EnemySpawn_2_1()
+    {
+        float spawnY = 5.0f;
+        for (int i = 0; i < spawnNum; i++)
+        {
+            // コウモリ敵を生成
+            GameObject firstbats;
+            firstbats = Instantiate(bats, new Vector2(spawn_Set_X, spawnY), Quaternion.identity);
+
+            // 体力設定
+            firstbats.GetComponent<MobEnemiesManager>().enemyHp = 50;
+
+            // ドロップアイテムを設定
+            firstbats.GetComponent<MobEnemiesManager>().getdropitme = powerItmeobj[0];
+
+            // 行動パターンを設定
+            firstbats.GetComponent<EnemyMoveManager>().getmovepattern = 3;
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    IEnumerator EnemySpawn_2_2()
+    {
+        float spawnY = 5.0f;
+        for (int i = 0; i < spawnNum; i++)
+        {
+            // コウモリ敵を生成
+            GameObject firstbats;
+            firstbats = Instantiate(bats, new Vector2(spawn_Set_X, spawnY), Quaternion.identity);
+
+            // 体力設定
+            firstbats.GetComponent<MobEnemiesManager>().enemyHp = 50;
+
+            // ドロップアイテムを設定
+            firstbats.GetComponent<MobEnemiesManager>().getdropitme = scoreItmeobj[0];
+
+            // 行動パターンを設定
+            firstbats.GetComponent<EnemyMoveManager>().getmovepattern = 4;
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
 
     void Mid_Boss_1()
     {

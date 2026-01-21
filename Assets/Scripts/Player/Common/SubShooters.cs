@@ -48,4 +48,10 @@ public class SubShooters : MonoBehaviour
         Instantiate(subBullet, this.transform.position, Quaternion.identity, ShotsField.transform);
         subshottime = 0.0f;
     }
+
+    public float getsubshotinterval
+    {
+        get { return this.subshotinterval; }
+        set { this.subshotinterval = value; }
+    }
 }
