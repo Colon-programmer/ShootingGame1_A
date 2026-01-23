@@ -4,10 +4,8 @@
 public class NeedlePerformance : PlayerController
 {
     float subshooterspeed = 1.0f; // 円運動のスピード
-    float fastsubshooterRadius = 1.0f; // 高速移動時の円運動の半径
-    float slowsubshooterRadius = 0.5f; // 低速移動時の円運動の半径
 
-    Vector2[] needleshooterLayout = new Vector2[2];
+    Vector2[] needleshooterLayout = new Vector2[4];
 
     
     public override void CharacterDefaultSetting()
@@ -19,23 +17,42 @@ public class NeedlePerformance : PlayerController
     {
         needleshooterLayout[0] = new Vector2(0.0f, 1.0f);
         needleshooterLayout[1] = new Vector2(0.0f, -1.0f);
+        needleshooterLayout[2] = new Vector2(0.0f, 0.6f);
+        needleshooterLayout[3] = new Vector2(0.0f, -0.6f);
 
         subshooterObj[0] = Instantiate(subshooter, needleshooterLayout[0],
             Quaternion.identity, subShooterCenter.transform);
         subshooterObj[1] = Instantiate(subshooter, needleshooterLayout[1],
             Quaternion.identity, subShooterCenter.transform);
+        subshooterObj[2] = Instantiate(subshooter, needleshooterLayout[2],
+            Quaternion.identity, subShooterCenter.transform);
+        subshooterObj[3] = Instantiate(subshooter, needleshooterLayout[3],
+            Quaternion.identity, subShooterCenter.transform);
 
         // 最初はRigidbodyとスプライトを取得してから不可視化する
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
         {
             subshooterRigidbody[i] = subshooterObj[i].GetComponent<Rigidbody2D>();
         }
-
     }
 
     public override void ShotPowerCheck()
     {
-        for (int i = 0; i < 2; i++)
+        if (controllerManager.slowAction.IsPressed())
+        {
+            subshooterObj[0].GetComponent<NeedleSubShots>().getshotflag = false;
+            subshooterObj[1].GetComponent<NeedleSubShots>().getshotflag = false;
+            subshooterObj[2].GetComponent<NeedleSubShots>().getshotflag = true;
+            subshooterObj[3].GetComponent<NeedleSubShots>().getshotflag = true;
+        }
+        else
+        {
+            subshooterObj[0].GetComponent<NeedleSubShots>().getshotflag = true;
+            subshooterObj[1].GetComponent<NeedleSubShots>().getshotflag = true;
+            subshooterObj[2].GetComponent<NeedleSubShots>().getshotflag = false;
+            subshooterObj[3].GetComponent<NeedleSubShots>().getshotflag = false;
+        }
+            for (int i = 0; i < 4; i++)
         {
             // パワーが4.0以上の時
             if (shotPower >= 400)
@@ -67,13 +84,10 @@ public class NeedlePerformance : PlayerController
 
     public override void SubShooterPositionning()
     {
-        //sbyte power; // パワーの数値の偶奇を受け渡す変数
-        //sbyte movetype; // 自機の今の移動が高速か低速かを受け渡す変数
-        //float shotPowerFloat = shotPower / 100.0f; // 浮動小数点の方が計算しやすいの変換する
         // 低速時
         if (controllerManager.slowAction.IsPressed())
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 subshooterObj[i].transform.RotateAround(
                     subShooterCenter.transform.position,
@@ -85,7 +99,7 @@ public class NeedlePerformance : PlayerController
         // 高速時
         else
         {
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 4; i++)
             {
                 subshooterObj[i].transform.RotateAround(
                     subShooterCenter.transform.position,

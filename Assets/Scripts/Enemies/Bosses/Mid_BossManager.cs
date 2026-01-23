@@ -32,7 +32,7 @@ public class Mid_BossManager : MonoBehaviour
 
     protected bool cancelflag = false;
 
-    protected GameObject scorecountobj;
+    protected GameObject scorecountobj; // スコアカウントオブジェクト
 
     [SerializeField] protected GameObject shotEraserobj; // 全画面弾消しオブジェクト
 
@@ -50,6 +50,11 @@ public class Mid_BossManager : MonoBehaviour
         scorecountobj = GameObject.Find("ScoreCounterObject");
 
         enemySpawnobj = GameObject.Find("EnemySpawn");
+
+        mid_boss_rb = GetComponent<Rigidbody2D>();
+
+        // 自機を探す
+        playerobj = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame

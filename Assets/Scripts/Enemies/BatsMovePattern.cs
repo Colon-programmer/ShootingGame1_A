@@ -35,10 +35,10 @@ public class BatsMovePattern : EnemyMoveManager
                 BatsMoving_02();
                 break;
             case 3:
-                BatsMoving_03();
+                StartCoroutine("BatsMoving_03");
                 break;
             case 4:
-                BatsMoving_04();
+                StartCoroutine("BatsMoving_04");
                 break;
             default:
                 break;
@@ -84,8 +84,12 @@ public class BatsMovePattern : EnemyMoveManager
         moveY_01 = transform.DOMoveY(batsVec.y - 1f, 1f);
 
         yield return new WaitForSeconds(1.1f);
-        moveX_01 = transform.DOMoveX(batsVec.x - 1f, 1f)
-            .SetLoops(-1, LoopType.Incremental);
+
+        BatsAttack_01();
+
+        yield return new WaitForSeconds(0.1f);
+
+        moveX_01 = transform.DOMoveX(-6f, 3f);
 
         if (this.transform.position.x <= -5.1f)
         {
@@ -93,12 +97,17 @@ public class BatsMovePattern : EnemyMoveManager
         }
     }
 
-    void BatsMoving_04()
+    IEnumerator BatsMoving_04()
     {
-        move_tween = transform.DOMoveY(batsVec.y - 1f, 1f)
-            .OnComplete(() => BatsAttack_01())
-            .OnComplete(() => transform.DOMoveX(1f, 1f)
-                        .SetLoops(-1, LoopType.Incremental));
+        moveY_01 = transform.DOMoveY(batsVec.y - 1f, 1f);
+
+        yield return new WaitForSeconds(1.1f);
+
+        BatsAttack_01();
+
+        yield return new WaitForSeconds(0.1f);
+
+        moveX_01 = transform.DOMoveX(6f, 3f);
         if (this.transform.position.x >= 5.1f)
         {
             move_tween.Kill();

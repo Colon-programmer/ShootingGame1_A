@@ -16,8 +16,6 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
 
     private float[,] bigbullet_01_pos_x; // 大きい赤弾の出現位置のテンプレート
 
-    private float[,] bigbullet_01_vec; // 大きい赤弾のベクトルのテンプレート
-
     //[SerializeField] private GameObject scoreItme; // スコアアイテム
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,11 +31,6 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
 
         // 弾の出現位置の初期化
         BulletpositionPreseter();
-
-        mid_boss_rb = GetComponent<Rigidbody2D>();
-
-        // 自機を探す
-        playerobj = GameObject.FindWithTag("Player");
 
         spwanMove = DOTween.Sequence();
         mid_boss_moveX_01 = transform.DOMoveX(this.transform.position.x - 5f, 0.5f);
@@ -70,7 +63,8 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
                 case 1:
                     cancelflag = true;
                     scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
-                    enemySpawnobj.GetComponent<EnemySpawnManager>().gettimercountstoper = false; // ステージのタイマーを再始動させる
+                    enemySpawnobj.GetComponent<EnemySpawnManager>().gettimercountstoper = false;
+                    Instantiate(shotEraserobj, new Vector2(0, 0), Quaternion.identity);// ステージのタイマーを再始動させる
                     Destroy(this.gameObject);
                     break;
                 default:
@@ -161,14 +155,6 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
             { 1.0f, 0.0f, 2.0f, -1.0f },
             { -1.0f, 1.0f, -2.0f, 2.0f },
             { 0.0f, -2.0f, 1.0f, -1.0f },
-        };
-
-        bigbullet_01_vec = new float[5, 2]{
-            {-0.4f, -0.6f },
-            {-0.2f, -0.8f },
-            {0.0f, -1.0f },
-            {0.2f, -0.8f },
-            {0.4f, -0.6f },
         };
     }
     private void OnDisable()

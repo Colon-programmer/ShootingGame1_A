@@ -16,7 +16,7 @@ public class EnemySpawnManager : MonoBehaviour
     protected float spawn_Set_Y;
 
     [SerializeField] protected GameObject mid_boss; // 中ボス(途中に出るボス)
-    //[SerializeField] protected GameObject big_boss; // ボス(ステージ最後に出るボス)
+    [SerializeField] protected GameObject big_boss; // ボス(ステージ最後に出るボス)
 
     [SerializeField] protected GameObject[] powerItmeobj; // パワーアイテムのオブジェクト
     [SerializeField] protected GameObject[] scoreItmeobj; // スコアアイテムのオブジェクト

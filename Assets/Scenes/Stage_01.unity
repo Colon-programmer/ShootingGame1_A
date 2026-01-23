@@ -1686,6 +1686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bats: {fileID: 4288631428007354007, guid: 024361296fee9ee4187487e7c0278cb5, type: 3}
   mid_boss: {fileID: 3716179530802902742, guid: e2c0fd6d348e70d43aec93be47558481, type: 3}
+  big_boss: {fileID: 3716179530802902742, guid: 774ef23a0f45ce04fb0696cec7bc81e1, type: 3}
   powerItmeobj:
   - {fileID: 6423571566161404390, guid: 191637ceb291d144e8d21c6086dd738f, type: 3}
   - {fileID: 7589370436043762080, guid: f142482d95800f24f9ad83414b5f342a, type: 3}

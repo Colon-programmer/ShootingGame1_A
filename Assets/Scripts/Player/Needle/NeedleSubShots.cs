@@ -3,7 +3,7 @@
 
 public class NeedleSubShots : SubShooters
 {
-    private bool shotflag = true;
+    private bool shotflag = true; // 撃てる状態かどうかのフラグ
 
     SpriteRenderer subshooterSprite;
 
@@ -13,24 +13,32 @@ public class NeedleSubShots : SubShooters
 
         subshooterSprite = GetComponent<SpriteRenderer>();
     }
+
+    public override void Update()
+    {
+        base.Update();
+        if(shotflag)
+        {
+            subshooterSprite.color = new Color32(255, 255, 255, 255);
+        }
+        else
+        {
+            subshooterSprite.color = new Color32(255, 255, 255, 0);
+        }
+    }
     public override void SubShotting()
     {
         if (shotflag)
         {
-            // 低速時
-            if (controllerManager.GetComponent<ControllerManager>().slowAction.IsPressed())
-            {
-                Instantiate(subBullet,
-                    this.transform.position, Quaternion.identity, ShotsField.transform);
-                subshottime = 0.0f;
-            }
-            // 高速時
-            else
-            {
-                Instantiate(subBullet,
-                    this.transform.position, Quaternion.identity, ShotsField.transform);
-                subshottime = 0.0f;
-            }
+            Instantiate(subBullet,
+                this.transform.position, Quaternion.identity, ShotsField.transform);
+            subshottime = 0.0f;
         }
+    }
+
+    public bool getshotflag
+    {
+        get { return this.shotflag; }
+        set { this.shotflag = value; }
     }
 }

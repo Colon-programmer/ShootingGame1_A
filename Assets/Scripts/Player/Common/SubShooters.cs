@@ -21,7 +21,7 @@ public class SubShooters : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void Update()
+    public virtual void Update()
     {
         if (controllerManager.GetComponent<ControllerManager>().shottingAction.IsPressed() && 
             !playerdead.GetComponent<PlayerDeadPoint>().getdeadmotionflag)

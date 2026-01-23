@@ -10,8 +10,6 @@ public class PlayerDeadPoint : MonoBehaviour
     private bool invicibleflag = false; // trueなら攻撃や敵に触れてもやられなくなるフラグ
     private bool deadmotionflag = false; // 死亡後一定時間は動かせないようにするフラグ
 
-    private bool gameoverflag = false; // ゲームオーバーフラグ
-
     private float invincibleTime = 0.0f; // 無敵になる秒数
     private float invincebleInterval = 3.0f; // 無敵時間を測る変数
 

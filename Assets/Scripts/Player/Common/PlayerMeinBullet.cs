@@ -5,8 +5,6 @@ public class PlayerMeinBullet : MonoBehaviour
 {
     Rigidbody2D meinshotRb; // メインショットのRigidbody
     float meinshotspeed = 20.0f; // メインショットの弾速
-
-    int DamageAmount = 50; // ショットのダメージ量
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

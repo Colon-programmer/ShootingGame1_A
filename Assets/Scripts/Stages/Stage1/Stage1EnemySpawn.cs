@@ -8,7 +8,7 @@ public class Stage1EnemySpawn : EnemySpawnManager
     void Start()
     {
         stageTimer = 0.0f;
-        spawnflag = new bool[7];
+        spawnflag = new bool[12];
         for (int flag = 0; flag < spawnflag.Length; flag++)
         {
             spawnflag[flag] = true;
@@ -49,7 +49,7 @@ public class Stage1EnemySpawn : EnemySpawnManager
             StartCoroutine("EnemySpawn_1_2");
             spawnflag[3] = false;
         }
-
+        // 中ボスの登場
         if (stageTimer >= 25.0f && bossflag[0])
         {
             Mid_Boss_1();
@@ -72,6 +72,62 @@ public class Stage1EnemySpawn : EnemySpawnManager
             StartCoroutine("EnemySpawn_2_2");
             spawnflag[5] = false;
         }
+
+        if (stageTimer >= 37.0f && spawnflag[6])
+        {
+            spawnNum = 1;
+            spawn_Set_X = 1.0f;
+            StartCoroutine("EnemySpawn_2_1");
+            spawnflag[6] = false;
+        }
+
+        if (stageTimer >= 37.5f && spawnflag[7])
+        {
+            spawnNum = 1;
+            spawn_Set_X = -1.0f;
+            StartCoroutine("EnemySpawn_2_2");
+            spawnflag[7] = false;
+        }
+
+        if (stageTimer >= 38.0f && spawnflag[8])
+        {
+            spawnNum = 1;
+            spawn_Set_X = 2.0f;
+            StartCoroutine("EnemySpawn_2_1");
+            spawnflag[8] = false;
+        }
+
+        if (stageTimer >= 38.5f && spawnflag[9])
+        {
+            spawnNum = 1;
+            spawn_Set_X = -2.0f;
+            StartCoroutine("EnemySpawn_2_2");
+            spawnflag[9] = false;
+        }
+
+        if (stageTimer >= 39.0f && spawnflag[10])
+        {
+            spawnNum = 1;
+            spawn_Set_X = 3.0f;
+            StartCoroutine("EnemySpawn_2_1");
+            spawnflag[10] = false;
+        }
+
+        if (stageTimer >= 39.5f && spawnflag[11])
+        {
+            spawnNum = 1;
+            spawn_Set_X = -3.0f;
+            StartCoroutine("EnemySpawn_2_2");
+            spawnflag[11] = false;
+        }
+        // ボスの登場
+        if (stageTimer >= 44.5f && bossflag[1])
+        {
+            Big_Boss_1();
+            bossflag[0] = false;
+            timercountstoper = true;
+        }
+
     }
 
     IEnumerator EnemySpawn_1_0()
@@ -198,5 +254,10 @@ public class Stage1EnemySpawn : EnemySpawnManager
     void Mid_Boss_1()
     {
         Instantiate(mid_boss, new Vector2(5.0f, 5.0f), Quaternion.identity);
+    }
+
+    void Big_Boss_1()
+    {
+        Instantiate(big_boss, new Vector2(5.0f, 5.0f), Quaternion.identity);
     }
 }
