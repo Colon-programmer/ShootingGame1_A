@@ -13,7 +13,7 @@ public class Big_BossManager : MonoBehaviour
     [SerializeField] protected GameObject big_boss_hp_gauge; // 中ボスの体力ゲージ
     protected GameObject gamecanvas;
 
-    protected sbyte big_boss_patten = 2; // HPが0になると1つ減りこれが0になるとやられるようにする
+    protected sbyte big_boss_patten = 4; // HPが0になると1つ減りこれが0になるとやられるようにする
 
     protected sbyte shottingpatten = 0; // 弾の出現パターンを指定する変数
 
@@ -40,9 +40,41 @@ public class Big_BossManager : MonoBehaviour
 
         enemySpawnobj = GameObject.Find("EnemySpawn");
 
-        big_boss_rb.GetComponent<Rigidbody2D>();
+        big_boss_rb = GetComponent<Rigidbody2D>();
 
         // 自機を探す
         playerobj = GameObject.FindWithTag("Player");
     }
+
+    protected void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("PlayerShots"))
+        {
+            int d_a = other.GetComponent<PlayerAttackAmounts>().damageAmount;
+
+            big_boss_hp -= d_a;
+            scorecountobj.GetComponent<ScoreGetter>().getscore += d_a;
+        }
+    }
+
+    protected void OnTriggerStay2D(Collider2D col)
+    {
+        if (col.CompareTag("Bomb"))
+        {
+            big_boss_hp -= col.GetComponent<PlayerAttackAmounts>().damageAmount;
+        }
+    }
+
+    public int getbig_boss_hp
+    {
+        get { return this.big_boss_hp; }
+        set { this.big_boss_hp = value; }
+    }
+
+    public int getbig_boss_maxhp
+    {
+        get { return this.big_boss_maxhp; }
+        set { this.big_boss_maxhp = value; }
+    }
+
 }

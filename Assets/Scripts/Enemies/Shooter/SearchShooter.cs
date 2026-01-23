@@ -32,8 +32,6 @@ public class SearchShooter : MonoBehaviour
         searchshootertransform.rotation = Quaternion.FromToRotation(Vector3.up, dir);
 
         searchbullettimer = 0;
-
-        Debug.Log(this.transform.eulerAngles);
     }
     private void FixedUpdate()
     {

@@ -48,6 +48,8 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
     {
         if (mid_boss_hp <= 0)
         {
+            // 攻撃パターン切り替え時に敵弾を全て消す
+            Instantiate(shotEraserobj, new Vector2(0, 0), Quaternion.identity);
             switch (mid_boss_patten)
             {
                 case 2:
@@ -58,13 +60,11 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
                     mid_boss_hp = 5000; // 新しい体力を設定する
                     mid_boss_maxhp = mid_boss_hp; // 新しく設定した体力を最大体力として設定する
                     scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
-                    Instantiate(shotEraserobj, new Vector2(0, 0), Quaternion.identity);
                     break;
                 case 1:
                     cancelflag = true;
                     scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
                     enemySpawnobj.GetComponent<EnemySpawnManager>().gettimercountstoper = false;
-                    Instantiate(shotEraserobj, new Vector2(0, 0), Quaternion.identity);// ステージのタイマーを再始動させる
                     Destroy(this.gameObject);
                     break;
                 default:

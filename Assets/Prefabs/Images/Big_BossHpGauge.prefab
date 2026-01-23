@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 1530313392155135957}
   - component: {fileID: 6924550111115570517}
   - component: {fileID: 1242959787957244930}
-  - component: {fileID: -5835305590807251120}
+  - component: {fileID: 584256432338946494}
   - component: {fileID: 8412400132164647995}
   m_Layer: 5
-  m_Name: BossHpGauge
+  m_Name: Big_BossHpGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29,7 +29,7 @@ RectTransform:
   m_GameObject: {fileID: 6927314989986178320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &-5835305590807251120
+--- !u!114 &584256432338946494
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -86,10 +86,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6927314989986178320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91034f682ba287a428c94d426a16944f, type: 3}
+  m_Script: {fileID: 11500000, guid: ef6738d6f94b8c24ba0f035c25fd6362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  midBossScript: {fileID: 0}
+  bigBossScript: {fileID: 0}
 --- !u!114 &8412400132164647995
 MonoBehaviour:
   m_ObjectHideFlags: 0

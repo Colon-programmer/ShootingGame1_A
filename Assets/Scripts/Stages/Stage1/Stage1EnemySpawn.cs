@@ -124,7 +124,7 @@ public class Stage1EnemySpawn : EnemySpawnManager
         if (stageTimer >= 44.5f && bossflag[1])
         {
             Big_Boss_1();
-            bossflag[0] = false;
+            bossflag[1] = false;
             timercountstoper = true;
         }
 
