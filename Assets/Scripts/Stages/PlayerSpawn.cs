@@ -14,7 +14,7 @@ public class PlayerSpawn : MonoBehaviour
             case PlayerManager.PLAYER.MISYA:
                 Instantiate(playerPrefab[0], this.transform.position, Quaternion.identity);
                 break;
-            case PlayerManager.PLAYER.POPPY:
+            case PlayerManager.PLAYER.NEEDLE:
                 Instantiate(playerPrefab[1], this.transform.position, Quaternion.identity);
                 break;
         }

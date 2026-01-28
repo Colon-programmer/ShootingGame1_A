@@ -9,7 +9,7 @@ public class PlayerManager : GameManager<PlayerManager>
     public enum PLAYER
     {
         MISYA = 1,
-        POPPY = 2
+        NEEDLE = 2
     }
 
     public PLAYER playerSelect;

@@ -219,7 +219,7 @@ public class Stage1EnemySpawn : EnemySpawnManager
             firstbats.GetComponent<MobEnemiesManager>().enemyHp = 50;
 
             // ドロップアイテムを設定
-            firstbats.GetComponent<MobEnemiesManager>().getdropitme = powerItmeobj[0];
+            firstbats.GetComponent<MobEnemiesManager>().getdropitme = powerItmeobj[1];
 
             // 行動パターンを設定
             firstbats.GetComponent<EnemyMoveManager>().getmovepattern = 3;

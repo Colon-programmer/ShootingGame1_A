@@ -124,7 +124,7 @@ public class TitleScript : MonoBehaviour
                         playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.MISYA;
                         break;
                     case 1:
-                        playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.POPPY;
+                        playerManager.GetComponent<PlayerManager>().playerSelect = PlayerManager.PLAYER.NEEDLE;
                         break;
                 }
                 playerManager.GetComponent<PlayerManager>().GameSceneMove(1);

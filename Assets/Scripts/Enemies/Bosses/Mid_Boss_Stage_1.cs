@@ -6,7 +6,7 @@ using System.Threading;
 
 public class Mid_Boss_Stage_1 : Mid_BossManager
 {
-    // 弾の動きのTween
+    // 敵弾の動きのTween
     private Tween mid_boss_moveX_01;
     private Tween mid_boss_moveY_01;
 
@@ -16,7 +16,7 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
 
     private float[,] bigbullet_01_pos_x; // 大きい赤弾の出現位置のテンプレート
 
-    //[SerializeField] private GameObject scoreItme; // スコアアイテム
+    [SerializeField] private GameObject powerItme; // スコアアイテム
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public override void Start()
@@ -63,6 +63,7 @@ public class Mid_Boss_Stage_1 : Mid_BossManager
                     break;
                 case 1:
                     cancelflag = true;
+                    Instantiate(powerItme, this.transform.position, Quaternion.identity);
                     scorecountobj.GetComponent<ScoreGetter>().getscore += 100;
                     enemySpawnobj.GetComponent<EnemySpawnManager>().gettimercountstoper = false;
                     Destroy(this.gameObject);

@@ -168,6 +168,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   big_boss_hp_gauge: {fileID: 2968840642826311747}
   shotEraserobj: {fileID: 4970199387192358103, guid: 44ed7b317fd7a9c4aa38337e2a2f6980, type: 3}
+  bullet_01: {fileID: 3434465246186700272, guid: babfcb2cd743cc74e802d0015c08f22e, type: 3}
+  bigbullet_01: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
+  shooterobj: {fileID: 6170581261313814137, guid: f4eda47c3b6b9cb499fdd8a0c898b654, type: 3}
 --- !u!1001 &5265187979323440467
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ public class Big_BossManager : MonoBehaviour
     [SerializeField] protected GameObject big_boss_hp_gauge; // 中ボスの体力ゲージ
     protected GameObject gamecanvas;
 
-    protected sbyte big_boss_patten = 4; // HPが0になると1つ減りこれが0になるとやられるようにする
+    protected sbyte big_boss_patten = 2; // HPが0になると1つ減りこれが0になるとやられるようにする
 
     protected sbyte shottingpatten = 0; // 弾の出現パターンを指定する変数
 
