@@ -4,7 +4,7 @@
 public class PlayerSpawn : MonoBehaviour
 {
     [SerializeField] private GameObject[] playerPrefab;
-    private GameObject playerManager; // プレイヤーの情報を持つスクリプトをオブジェクト
+    private GameObject playerManager; // プレイヤーの情報を持つスクリプトオブジェクト
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

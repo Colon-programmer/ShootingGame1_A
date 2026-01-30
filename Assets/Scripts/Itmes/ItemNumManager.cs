@@ -14,9 +14,9 @@ public class ItemNumManager : MonoBehaviour
     {
         // シングルトンからゲーム開始時の初期値を設定
         playermanager = GameObject.Find("PlayerManager");
-        powerNum = playermanager.GetComponent<PlayerManager>().powerdefault;
-        lifeNum = playermanager.GetComponent<PlayerManager>().lifedefault;
-        bombNum = playermanager.GetComponent<PlayerManager>().bombdefault;
+        powerNum = playermanager.GetComponent<PlayerManager>().powernow;
+        lifeNum = playermanager.GetComponent<PlayerManager>().lifenow;
+        bombNum = playermanager.GetComponent<PlayerManager>().bombnow;
     }
 
     // Update is called once per frame

@@ -105,6 +105,16 @@ public class PlayerDeadPoint : MonoBehaviour
             // スコアを加算する
             scoreCountobj.GetComponent<ScoreGetter>().getscore += numscore;
         }
+        if (col.gameObject.TryGetComponent(out BombItemEffect bItem))
+        {
+            // ボム数の表示を変える
+            playerobj.GetComponent<PlayerController>().
+                getitemDisplayer.GetComponent<ItemNumManager>().getbombNum += 1;
+            // ボムを加算する
+            playerobj.GetComponent<PlayerController>().getplayerbomb += 1;
+            // 獲得したアイテムを消滅させる
+            Destroy(col.gameObject);
+        }
     }
 
 

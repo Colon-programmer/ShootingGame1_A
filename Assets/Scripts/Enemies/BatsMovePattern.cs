@@ -40,6 +40,12 @@ public class BatsMovePattern : EnemyMoveManager
             case 4:
                 StartCoroutine("BatsMoving_04");
                 break;
+            case 5:
+                StartCoroutine("BatsMoving_05");
+                break;
+            case 6:
+                StartCoroutine("BatsMoving_06");
+                break;
             default:
                 break;
         }
@@ -115,11 +121,58 @@ public class BatsMovePattern : EnemyMoveManager
         }
     }
 
+    IEnumerator BatsMoving_05()
+    {
+        batsPattern = DOTween.Sequence();
+        moveX_01 = transform.DOMoveX(batsVec.x + 14f, 4.0f);
+        moveY_01 = transform.DOMoveY(batsVec.y - 12f, 4.0f);
+
+        batsPattern.Join(moveX_01);
+        batsPattern.Join(moveY_01);
+
+        batsPattern.OnComplete(MobDelete);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BatsAttack_02();
+
+        yield return new WaitForSeconds(1.0f);
+
+        BatsAttack_02();
+    }
+
+    IEnumerator BatsMoving_06()
+    {
+        batsPattern = DOTween.Sequence();
+        moveX_01 = transform.DOMoveX(batsVec.x - 14f, 4.0f);
+        moveY_01 = transform.DOMoveY(batsVec.y - 12f, 4.0f);
+
+        batsPattern.Join(moveX_01);
+        batsPattern.Join(moveY_01);
+
+        batsPattern.OnComplete(MobDelete);
+
+        yield return new WaitForSeconds(0.5f);
+
+        BatsAttack_02();
+
+        yield return new WaitForSeconds(1.0f);
+
+        BatsAttack_02();
+    }
+
     void BatsAttack_01()
     {
         GameObject shot_1 = Instantiate(shooterobj, this.transform.position, Quaternion.identity);
 
         shot_1.GetComponent<SearchShooter>().NormalSearchShot(red_bullet, 4.0f, 5, 10);
+    }
+
+    void BatsAttack_02()
+    {
+        GameObject shot_02 = Instantiate(shooterobj, this.transform.position, Quaternion.identity);
+
+        shot_02.GetComponent<SearchShooter>().FanShapeSearchShot(red_bullet, 4.0f, 1, 15.0f, 1, 1);
     }
 
     private void OnDisable()

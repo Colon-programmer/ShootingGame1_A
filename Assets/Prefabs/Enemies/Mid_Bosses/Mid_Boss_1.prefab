@@ -171,7 +171,7 @@ MonoBehaviour:
   bigbullet_01: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
   bigSearchbullet: {fileID: 3434465246186700272, guid: 6954e2a1b1fdb5e4fb8348e68c254a50, type: 3}
   shooterobj: {fileID: 6170581261313814137, guid: f4eda47c3b6b9cb499fdd8a0c898b654, type: 3}
-  powerItme: {fileID: 6747039785077206357, guid: b2396055a2c258e499c65b572e539ddf, type: 3}
+  powerItme: {fileID: 5725631686432069887, guid: 07b8711bbabd22b41b27707c07f88954, type: 3}
 --- !u!1001 &3834970267753803134
 PrefabInstance:
   m_ObjectHideFlags: 0

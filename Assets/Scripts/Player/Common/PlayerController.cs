@@ -306,6 +306,12 @@ public class PlayerController : MonoBehaviour
         set { this.shotPower = value; }
     }
 
+    public sbyte getplayerbomb
+    {
+        get { return this.playerbomb; }
+        set { this.playerbomb = value; }
+    }
+
     public int getshotMaxPower
     {
         get { return this.shotMaxPower; }

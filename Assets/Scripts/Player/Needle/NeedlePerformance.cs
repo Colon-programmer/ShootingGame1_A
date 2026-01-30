@@ -57,22 +57,22 @@ public class NeedlePerformance : PlayerController
             // パワーが4.0以上の時
             if (shotPower >= 400)
             {
-                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.1f;
+                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.06f;
             }
             // パワーが3.0以上の時
             else if (shotPower >= 300)
             {
-                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.15f;
+                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.10f;
             }
             // パワーが2.0以上の時
             else if (shotPower >= 200)
             {
-                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.2f;
+                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.15f;
             }
             // パワーが1.0以上の時
             else if (shotPower >= 100)
             {
-                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.25f;
+                subshooterObj[i].GetComponent<SubShooters>().getsubshotinterval = 0.2f;
             }
             // パワーが1.0未満の時
             else

@@ -13,11 +13,15 @@ public class PlayerManager : GameManager<PlayerManager>
     }
 
     public PLAYER playerSelect;
-    public sbyte lifedefault = 2; // 初期残機数
-    public sbyte bombdefault = 2; // 初期ボム数
-    public int powerdefault = 100; // 現在のパワーの数値(ステージ間で引き継ぐ)
-    public int scorenum = 0; // 獲得したスコアを格納する変数
+    public sbyte lifedefault; // 初期残機数
+    public sbyte bombdefault; // 初期ボム数
+    public int powerdefault; // 現在のパワーの数値(ステージ間で引き継ぐ)
+    public int scorenum; // 獲得したスコアを格納する変数
     public sbyte stagenumber; // 現在のステージの番号を格納する変数
+    // ステージを跨ぐ際に使う変数
+    public sbyte lifenow;
+    public sbyte bombnow;
+    public int powernow;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,8 +37,11 @@ public class PlayerManager : GameManager<PlayerManager>
     /// <summary>
     /// スコアを0にする関数
     /// </summary>
-    void ScoreReset()
+    void DefaultSeter()
     {
+        lifenow = lifedefault;
+        bombnow = bombdefault;
+        powernow = powerdefault;
         scorenum = 0;
     }
     /// <summary>
@@ -44,7 +51,7 @@ public class PlayerManager : GameManager<PlayerManager>
     public void GameSceneMove(sbyte num)
     {
         // ゲームシーンに行く前にスコアをリセットする
-        ScoreReset();
+        DefaultSeter();
 
         switch (num)
         {

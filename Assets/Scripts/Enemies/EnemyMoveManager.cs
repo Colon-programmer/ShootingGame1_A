@@ -15,7 +15,6 @@ public class EnemyMoveManager : MonoBehaviour
     public virtual void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
-        StartCoroutine("TestAttack");
     }
     /// <summary>
     /// 雑魚敵を消す関数
